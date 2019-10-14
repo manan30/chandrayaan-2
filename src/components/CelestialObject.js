@@ -18,14 +18,16 @@ CelestialObject.propTypes = {
   setRef: Proptypes.objectOf(Proptypes.any),
   position: Proptypes.arrayOf(Proptypes.number),
   scale: Proptypes.number,
-  textureURL: Proptypes.string
+  textureURL: Proptypes.string,
+  color: Proptypes.number
 };
 
 CelestialObject.defaultProps = {
   setRef: {},
   position: [],
   scale: 3,
-  textureURL: ''
+  textureURL: '',
+  color: 0
 };
 
 export default CelestialObject;
