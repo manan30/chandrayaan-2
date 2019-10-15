@@ -3,6 +3,7 @@ import { useThree, useFrame } from 'react-three-fiber';
 import { CameraHelper } from 'three';
 
 import Light from '../components/Lights';
+import Stars from '../components/Stars';
 import CelestialObject from '../components/CelestialObject';
 import FallbackMesh from '../components/FallbackMesh';
 
@@ -53,6 +54,7 @@ function MainScene() {
   return (
     <>
       <Light color={0xffffff} />
+      <Stars />
       <Suspense fallback={<FallbackMesh />}>
         <CelestialObject
           setRef={sunRef}
