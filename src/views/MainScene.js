@@ -5,6 +5,7 @@ import { CameraHelper, DoubleSide } from 'three';
 import Light from '../components/Lights';
 import CelestialObject from '../components/CelestialObject';
 import FallbackMesh from '../components/FallbackMesh';
+import Stars from '../components/Stars';
 
 import SunTexture from '../assets/sun.jpg';
 import MercuryTexture from '../assets/mercury.jpg';
@@ -85,6 +86,7 @@ function MainScene() {
   return (
     <>
       <Light color={0xffffff} />
+      <Stars />
       <object3D>
         <Suspense fallback={<FallbackMesh />}>
           <CelestialObject
