@@ -16,6 +16,8 @@ import JupiterTexture from '../assets/jupiter.jpg';
 import SaturnTexture from '../assets/saturn.jpg';
 import UranusTexture from '../assets/uranus.jpg';
 import NeptuneTexture from '../assets/neptune.jpg';
+import EarthSkyBox from '../components/EarthSkybox';
+import Spaceship from '../components/Spaceship';
 
 function MainScene() {
   const sunRef = useRef();
@@ -43,8 +45,8 @@ function MainScene() {
   camera.near = 0.1;
   camera.far = 20000;
 
-  camera.position.y = 200;
-  camera.position.z = 800;
+  camera.position.y = 0;
+  camera.position.z = 550;
   camera.rotation.y = Math.PI;
 
   useFrame(({ scene }, delta) => {
@@ -80,6 +82,8 @@ function MainScene() {
     if (neptuneRef.current) neptuneRef.current.rotation.y += delta / 0.67;
   });
 
+  // console.log(scene.getObjectByName('EarthSkybox'), scene);
+
   // const cameraHelper = new CameraHelper(camera);
   // scene.add(cameraHelper);
 
@@ -87,7 +91,21 @@ function MainScene() {
     <>
       <Light color={0xffffff} />
       <Stars />
-      <object3D>
+      <Suspense fallback={<FallbackMesh />}>
+        <object3D>
+          <EarthSkyBox />
+          {/* <Spaceship /> */}
+        </object3D>
+      </Suspense>
+      {/* <Suspense fallback={<FallbackMesh />}>
+        <CelestialObject
+          setRef={sunRef}
+          position={[0, 5, 0]}
+          scale={110}
+          textureURL={SunTexture}
+        />
+      </Suspense> */}
+      {/* <object3D>
         <Suspense fallback={<FallbackMesh />}>
           <CelestialObject
             setRef={sunRef}
@@ -190,7 +208,7 @@ function MainScene() {
             />
           </Suspense>
         </object3D>
-      </object3D>
+      </object3D> */}
     </>
   );
 }
