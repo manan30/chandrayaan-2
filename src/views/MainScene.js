@@ -37,6 +37,7 @@ function MainScene() {
   const uranusRef = useRef();
   const neptuneOrbitRef = useRef();
   const neptuneRef = useRef();
+  const spaceshipRef = useRef();
 
   const { camera, scene, clock } = useThree();
 
@@ -80,12 +81,14 @@ function MainScene() {
     if (neptuneOrbitRef.current)
       neptuneOrbitRef.current.rotation.y += delta / 601.48;
     if (neptuneRef.current) neptuneRef.current.rotation.y += delta / 0.67;
-  });
 
-  // console.log(scene.getObjectByName('EarthSkybox'), scene);
+    if (spaceshipRef.current) spaceshipRef.current.position.y += delta * 20;
+  });
 
   // const cameraHelper = new CameraHelper(camera);
   // scene.add(cameraHelper);
+
+  console.log(scene);
 
   return (
     <>
@@ -93,8 +96,12 @@ function MainScene() {
       <Stars />
       <Suspense fallback={<FallbackMesh />}>
         <object3D>
-          <EarthSkyBox />
-          {/* <Spaceship /> */}
+          {/* <EarthSkyBox /> */}
+          <Spaceship
+            setRef={spaceshipRef}
+            scale={[0.1, 0.1, 0.1]}
+            position={[0, -180, 0]}
+          />
         </object3D>
       </Suspense>
       {/* <Suspense fallback={<FallbackMesh />}>
