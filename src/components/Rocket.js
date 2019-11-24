@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import Spaceship from './Spaceship';
 import RocketThrust from './RocketThrust';
 
-function Rocket({ objectRef, spaceshipRef, thrustRef }) {
-  console.log({ objectRef, spaceshipRef, thrustRef });
+function Rocket({ objectRef, spaceshipRef, thrustRef, position }) {
   return (
-    <group ref={objectRef}>
-      <Spaceship setRef={spaceshipRef} scale={[0.1, 0.1, 0.1]} />
-      <RocketThrust setRef={thrustRef} />
+    <group position={position}>
+      <Spaceship scale={[0.05, 0.05, 0.05]} />
+      {/* <RocketThrust setRef={thrustRef} /> */}
     </group>
   );
 }
