@@ -6,6 +6,10 @@ import Light from '../components/Lights';
 import CelestialObject from '../components/CelestialObject';
 import FallbackMesh from '../components/FallbackMesh';
 import Stars from '../components/Stars';
+import EarthSkyBox from '../components/EarthSkybox';
+import Rocket from '../components/Rocket';
+// import Spaceship from '../components/Spaceship';
+// import RocketThrust from '../components/RocketThrust';
 
 import SunTexture from '../assets/sun.jpg';
 import MercuryTexture from '../assets/mercury.jpg';
@@ -35,6 +39,9 @@ function MainScene() {
   const uranusRef = useRef();
   const neptuneOrbitRef = useRef();
   const neptuneRef = useRef();
+  const rocketRef = useRef();
+  const spaceshipRef = useRef();
+  const thrustRef = useRef();
 
   const { camera, scene, clock } = useThree();
 
@@ -47,7 +54,7 @@ function MainScene() {
   camera.position.z = 800;
   camera.rotation.y = Math.PI;
 
-  useFrame(({ scene }, delta) => {
+  useFrame(({ scene, clock }, delta) => {
     if (sunRef.current) sunRef.current.rotation.y += delta / 100;
 
     if (mercuryOrbitRef.current)
@@ -78,16 +85,38 @@ function MainScene() {
     if (neptuneOrbitRef.current)
       neptuneOrbitRef.current.rotation.y += delta / 601.48;
     if (neptuneRef.current) neptuneRef.current.rotation.y += delta / 0.67;
-  });
 
-  // const cameraHelper = new CameraHelper(camera);
-  // scene.add(cameraHelper);
+    if (rocketRef.current) rocketRef.current.position.y += delta * 20;
+
+    if (
+      clock.getElapsedTime() > 4 &&
+      thrustRef.current &&
+      thrustRef.current.visible
+    ) {
+      thrustRef.current.visible = false;
+    }
+  });
 
   return (
     <>
       <Light color={0xffffff} />
       <Stars />
-      <object3D>
+      <Suspense fallback={<FallbackMesh />}>
+        <Rocket
+          objectRef={rocketRef}
+          spaceshipRef={spaceshipRef}
+          thrustRef={thrustRef}
+        />
+      </Suspense>
+      {/* <Suspense fallback={<FallbackMesh />}>
+        <CelestialObject
+          setRef={sunRef}
+          position={[0, 5, 0]}
+          scale={110}
+          textureURL={SunTexture}
+        />
+      </Suspense> */}
+      {/* <object3D>
         <Suspense fallback={<FallbackMesh />}>
           <CelestialObject
             setRef={sunRef}
