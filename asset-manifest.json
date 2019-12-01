@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.js": "/chandrayaan-2/static/js/main.c6fb349e.chunk.js",
+    "main.js.map": "/chandrayaan-2/static/js/main.c6fb349e.chunk.js.map",
+    "runtime-main.js": "/chandrayaan-2/static/js/runtime-main.66304fb8.js",
+    "runtime-main.js.map": "/chandrayaan-2/static/js/runtime-main.66304fb8.js.map",
+    "static/js/2.2eb7a178.chunk.js": "/chandrayaan-2/static/js/2.2eb7a178.chunk.js",
+    "static/js/2.2eb7a178.chunk.js.map": "/chandrayaan-2/static/js/2.2eb7a178.chunk.js.map",
+    "index.html": "/chandrayaan-2/index.html",
+    "precache-manifest.97c6dc7aa0f385bc00b5249ac881ba4e.js": "/chandrayaan-2/precache-manifest.97c6dc7aa0f385bc00b5249ac881ba4e.js",
+    "service-worker.js": "/chandrayaan-2/service-worker.js",
+    "static/media/earth.jpg": "/chandrayaan-2/static/media/earth.45ae6884.jpg",
+    "static/media/jupiter.jpg": "/chandrayaan-2/static/media/jupiter.c147e262.jpg",
+    "static/media/mars.jpg": "/chandrayaan-2/static/media/mars.b1404cfb.jpg",
+    "static/media/mercury.jpg": "/chandrayaan-2/static/media/mercury.05a75c74.jpg",
+    "static/media/neptune.jpg": "/chandrayaan-2/static/media/neptune.17c1bff0.jpg",
+    "static/media/saturn.jpg": "/chandrayaan-2/static/media/saturn.278f00b0.jpg",
+    "static/media/sun.jpg": "/chandrayaan-2/static/media/sun.09a52bea.jpg",
+    "static/media/uranus.jpg": "/chandrayaan-2/static/media/uranus.0465fbad.jpg",
+    "static/media/venus.jpg": "/chandrayaan-2/static/media/venus.814a2921.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.66304fb8.js",
+    "static/js/2.2eb7a178.chunk.js",
+    "static/js/main.c6fb349e.chunk.js"
+  ]
+}
