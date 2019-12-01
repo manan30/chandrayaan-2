@@ -2,27 +2,27 @@ import React, { useMemo } from 'react';
 import * as THREE from 'three';
 
 function Stars() {
-  const [coords, geo, mat] = useMemo(() => {
-    return [
-      new Array(2000)
-        .fill()
-        .map([
-          Math.random() * 800 - 400,
-          Math.random() * 800 - 400,
-          Math.random() * 800 - 400
-        ]),
-      new THREE.SphereBufferGeometry(1, 10, 10),
-      new THREE.MeshBasicMaterial({ color: new THREE.Color('lightblue') })
-    ];
-  });
+  const starsGeometry = new THREE.SphereGeometry(0.5);
 
-  return (
-    <group>
-      {coords.map(a => {
-        return <mesh geometry={geo} material={mat} position={[...a]} />;
-      })}
-    </group>
+  const points = useMemo(
+    () =>
+      new Array(10000).fill().map(() => {
+        const star = new THREE.Vector3();
+
+        star.x = THREE.Math.randFloatSpread(2000);
+        star.y = THREE.Math.randFloatSpread(2000);
+        star.z = THREE.Math.randFloatSpread(2000);
+
+        return star;
+      }),
+    []
   );
+
+  starsGeometry.setFromPoints(points);
+
+  const starsMaterial = new THREE.PointsMaterial({ color: 0x888888 });
+
+  return <points args={[starsGeometry, starsMaterial]} />;
 }
 
 export default Stars;

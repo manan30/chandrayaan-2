@@ -1,10 +1,12 @@
 import React, { useRef, Suspense } from 'react';
 import { useThree, useFrame } from 'react-three-fiber';
-import { CameraHelper, DoubleSide } from 'three';
+import { CameraHelper, DoubleSide, Vector3 } from 'three';
+import TWEEN from '@tweenjs/tween.js';
 
 import Light from '../components/Lights';
 import CelestialObject from '../components/CelestialObject';
 import FallbackMesh from '../components/FallbackMesh';
+import Stars from '../components/Stars';
 
 import SunTexture from '../assets/sun.jpg';
 import MercuryTexture from '../assets/mercury.jpg';
@@ -15,6 +17,7 @@ import JupiterTexture from '../assets/jupiter.jpg';
 import SaturnTexture from '../assets/saturn.jpg';
 import UranusTexture from '../assets/uranus.jpg';
 import NeptuneTexture from '../assets/neptune.jpg';
+import TravelController from '../Controllers/TravelController';
 
 function MainScene() {
   const sunRef = useRef();
@@ -35,7 +38,9 @@ function MainScene() {
   const neptuneOrbitRef = useRef();
   const neptuneRef = useRef();
 
-  const { camera, scene, clock } = useThree();
+  const { scene, camera } = useThree();
+
+  const travelController = new TravelController(scene, camera);
 
   camera.fov = 180;
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -46,7 +51,7 @@ function MainScene() {
   camera.position.z = 800;
   camera.rotation.y = Math.PI;
 
-  useFrame(({ scene }, delta) => {
+  useFrame(({ clock }, delta) => {
     if (sunRef.current) sunRef.current.rotation.y += delta / 100;
 
     if (mercuryOrbitRef.current)
@@ -56,7 +61,7 @@ function MainScene() {
     if (venusOrbitRef.current) venusOrbitRef.current.rotation.y += delta / 2.55;
     if (venusRef.current) venusRef.current.rotation.y += delta / 243;
 
-    if (earthOrbitRef.current) earthOrbitRef.current.rotation.y += delta / 3.65;
+    // if (earthOrbitRef.current) earthOrbitRef.current.rotation.y += delta / 3.65;
     if (earthRef.current) earthRef.current.rotation.y += delta / 0.99;
 
     if (marsOrbitRef.current) marsOrbitRef.current.rotation.y += delta / 6.86;
@@ -77,14 +82,43 @@ function MainScene() {
     if (neptuneOrbitRef.current)
       neptuneOrbitRef.current.rotation.y += delta / 601.48;
     if (neptuneRef.current) neptuneRef.current.rotation.y += delta / 0.67;
+
+    if (clock.elapsedTime > 6) {
+      // earthOrbitRef.current.position.set(new Vector3(140, 5, 100));
+      // earthRef.current.position.set(new Vector3(140, 5, 100));
+      // earthRef.current.scale.x = 10;
+      // earthRef.current.scale.y = 10;
+      // earthRef.current.scale.z = 10;
+    }
+    travelController.update(delta);
   });
 
-  // const cameraHelper = new CameraHelper(camera);
-  // scene.add(cameraHelper);
+  setTimeout(() => {
+    if (earthRef.current) {
+      travelController.travelToObject(
+        camera.position,
+        earthRef.current,
+        12756 * 10 ** -3.8 * 2.5
+      );
+    }
+  }, 5000);
+
+  // React.useEffect(() => {
+  //   if (earthRef.current) {
+  //     const travelController = new TravelController(scene, camera);
+  //     travelController.travelToObject(
+  //       camera.position,
+  //       earthRef.current,
+  //       12756 * 10 ** -3.8 * 2.5
+  //     );
+  //   }
+  // });
 
   return (
     <>
       <Light color={0xffffff} />
+      <Stars />
+
       <object3D>
         <Suspense fallback={<FallbackMesh />}>
           <CelestialObject
