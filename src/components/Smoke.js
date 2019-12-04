@@ -1,77 +1,70 @@
-// import { TextureLoader, PlaneGeometry, Mesh, MeshLambertMaterial } from 'three';
+import Proton from 'proton-engine';
+import { useFrame, useThree } from 'react-three-fiber';
 
-// import SmokeTextureURL from '../assets/smoke-texture.png';
+const dot =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJkSURBVHjaxJeJbusgEEW94S1L//83X18M2MSuLd2pbqc4wZGqRLrKBsyZhQHny7Jk73xVL8xpVhWrcmiB5lX+6GJ5YgQ2owbAm8oIwH1VgKZUmGcRqKGGPgtEQQAzGR8hQ59fAmhJHSAagigJ4E7GPWRXOYC6owAd1JM6wDQPADyMWUqZRMqmAojHp1Vn6EQQEgUNMJLnUjMyJsM49wygBkAPw9dVFwXRkncCIIW3GRgoTQUZn6HxCMAFEFd8TwEQ78X4rHbILoAUmeT+RFG4UhQ6MiIAE4W/UsYFjuVjAIa2nIY4q1R0GFtQWG3E84lqw2GO2QOoCKBVu0BAPgDSU0eUDjjQenNkV/AW/pWChhpMTelo1a64AOKM30vk18GzTHXCNtI/Knz3DFBgsUqBGIjTInXRY1yA9xkVoqW5tVq3pDR9A0hfF5BSARmVnh7RMDCaIdcNgbPBkgzn1Bu+SfIEFSpSBmkxyrMicb0fAEuCZrWnN89veA/4XcakrPcjBWzkTuLjlbfTQPOlBhz+HwkqqPXmPQDdrQItxE1moGof1S74j/8txk8EHhTQrAE8qlwfqS5yukm1x/rAJ9Jiaa6nyATqD78aUVBhFo8b1V4DdTXdCW+IxA1zB4JhiOhZMEWO1HqnvdoHZ4FAMIhV9REF8FiUm0jsYPEJx/Fm/N8OhH90HI9YRHesWbXXZwAShU8qThe7H8YAuJmw5yOd989uRINKRTJAhoF8jbqrHKfeCYdIISZfSq26bk/K+yO3YvfKrVgiwQBHnwt8ynPB25+M8hceTt/ybPhnryJ78+tLgAEAuCFyiQgQB30AAAAASUVORK5CYII=';
 
-// async function Smoke({ scene }) {
-//   const smokeTexture = new TextureLoader().load(SmokeTextureURL);
+function Smoke() {
+  const { gl } = useThree();
+  let emitter;
+  let proton;
 
-//   const smokeMaterial = new MeshLambertMaterial({
-//     color: 0xffffff,
-//     map: smokeTexture,
-//     transparent: true
-//   });
-//   const smokeGeometry = new PlaneGeometry(50, 50);
+  gl.width = window.innerWidth;
+  gl.height = window.innerHeight;
 
-//   const smokeParticles = [];
-//   for (let i = 0; i < 350; i += 1) {
-//     const particle = new Mesh(smokeGeometry, smokeMaterial);
-//     particle.position.set(0, -5, Math.random() * 1000 - 100);
-//     particle.rotation.z = Math.random() * 360;
-//     // particle.visible = false;
-//     scene.add(particle);
+  console.log(gl);
+  function createImageEmitter() {
+    emitter = new Proton.Emitter();
+    emitter.rate = new Proton.Rate(
+      new Proton.Span(150, 500),
+      // new Proton.Span(100, 50),
+      new Proton.Span(0.1, 0.2)
+    );
 
-//     smokeParticles.push(particle);
-//   }
+    emitter.addInitialize(new Proton.Mass(1));
+    emitter.addInitialize(new Proton.Life(1, 2));
+    emitter.addInitialize(new Proton.Body([dot], 32));
+    emitter.addInitialize(new Proton.Radius(40));
+    emitter.addInitialize(
+      new Proton.V(new Proton.Span(3, 6), new Proton.Span(0, 360), 'polar')
+    );
 
-//   return smokeParticles;
-// }
+    emitter.addBehaviour(new Proton.Alpha(1, 0));
+    emitter.addBehaviour(new Proton.Color('#ffffff', '#ffffff'));
+    emitter.addBehaviour(new Proton.Scale(Proton.getSpan(0.3, 4), 0));
+    emitter.addBehaviour(
+      new Proton.CrossZone(
+        new Proton.RectZone(0, 0, gl.width, gl.height),
+        'dead'
+      )
+    );
 
-// function animateSmoke(particles, delta) {
-//   let count = particles.length;
-//   while (count > 0) {
-//     particles[count - 1].rotation.set += delta * 0.02;
-//     particles[count - 1].position.set(
-//       Math.random() * 150 - 75,
-//       Math.random() * 100,
-//       Math.random() * 10 - 5
-//     );
-//     count -= 1;
-//   }
-// }
+    emitter.p.x = gl.width / 2;
+    emitter.p.y = gl.height / 2;
+    emitter.rotation = 48;
+    emitter.emit();
 
-// export { Smoke, animateSmoke };
-import Proton from 'three.proton.js';
-import { Color } from 'three';
+    return emitter;
+  }
 
-function ParticleEngine({ scene }) {
-  const proton = new Proton();
-  const emitter = new Proton.Emitter();
+  (function createProton() {
+    const protonParticle = new Proton();
+    emitter = createImageEmitter();
+    protonParticle.addEmitter(emitter);
 
-  // setRate
-  emitter.rate = new Proton.Rate(new Proton.Span(4, 16), new Proton.Span(0.01));
+    const rendererType = new Proton.WebGLRenderer(gl);
+    rendererType.blendFunc('SRC_ALPHA', 'ONE');
+    protonParticle.addRenderer(rendererType);
 
-  // addInitialize
-  emitter.addInitialize(new Proton.Position(new Proton.PointZone(0, 0)));
-  emitter.addInitialize(new Proton.Mass(1));
-  emitter.addInitialize(new Proton.Radius(6, 12));
-  emitter.addInitialize(new Proton.Life(3));
-  emitter.addInitialize(new Proton.V(45, new Proton.Vector3D(0, 1, 0), 180));
+    proton = protonParticle;
+  })();
 
-  // addBehaviour
-  emitter.addBehaviour(new Proton.Alpha(1, 0));
-  emitter.addBehaviour(new Proton.Scale(0.1, 1.3));
+  console.log(proton);
 
-  const color1 = new Color();
-  const color2 = new Color();
-  const colorBehaviour = new Proton.Color(color1, color2);
-  emitter.addBehaviour(colorBehaviour);
-  emitter.emit();
-
-  // add emitter
-  proton.addEmitter(emitter);
-
-  // add renderer
-  proton.addRender(new Proton.SpriteRender(scene));
+  (function update() {
+    requestAnimationFrame(update);
+    proton.update();
+  })();
 }
 
-export default ParticleEngine;
+export default Smoke;
