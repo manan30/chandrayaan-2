@@ -94,8 +94,8 @@ class TravelController {
 
     const animation = new TWEEN.Tween(this.camera.position).to(
       {
-        x: this.camera.position.x,
-        y: this.camera.position.y,
+        // x: this.camera.position.x,
+        // y: this.camera.position.y,
         z: this.camera.position.z - (takeOffHeight + 400)
       },
       travelDuration
@@ -144,25 +144,25 @@ class TravelController {
 
     this.cameraTarget = this.objectCentroid;
 
-    return this.takeOff.start().onComplete(() => {
-      const cameraTween = new TWEEN.Tween(this.camera.position)
-        .to({ x: 150, y: 5, z: 100 }, travelDuration)
-        .easing(TWEEN.Easing.Cubic.InOut)
-        .onUpdate(
-          // function update() {
-          //   const destinationCoordinates = this.calculateDestinationCoordinates(
-          //     targetObject
-          //   );
-          //   cameraTween.to(destinationCoordinates);
-          //   this.camera.lookAt(targetObject.position);
-          // }.bind(this)
-          () => this.camera.lookAt(targetObject.position)
-        )
-        .onComplete(
-          this.handleComplete.bind(this, targetObject, this.cameraTarget)
-        )
-        .start();
-    });
+    // return this.takeOff.start().onComplete(() => {
+    new TWEEN.Tween(this.camera.position)
+      .to({ x: 150, y: 5, z: 100 }, travelDuration)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onUpdate(
+        // function update() {
+        //   const destinationCoordinates = this.calculateDestinationCoordinates(
+        //     targetObject
+        //   );
+        //   cameraTween.to(destinationCoordinates);
+        //   this.camera.lookAt(targetObject.position);
+        // }.bind(this)
+        () => this.camera.lookAt(targetObject.position)
+      )
+      .onComplete(
+        this.handleComplete.bind(this, targetObject, this.cameraTarget)
+      )
+      .start();
+    // });
   }
 
   update(delta) {
