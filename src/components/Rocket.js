@@ -8,7 +8,7 @@ import RocketThrust from './RocketThrust';
 
 import CameraAnimationController from '../Controllers/CameraAnimationController';
 
-function Rocket({ objectRef, thrustRef, position }) {
+function Rocket({ objectRef, thrustRef, position, name }) {
   const { scene, camera } = useThree();
   const spaceshipRef = React.useRef();
 
@@ -50,7 +50,7 @@ function Rocket({ objectRef, thrustRef, position }) {
   });
 
   return (
-    <group ref={spaceshipRef} position={position}>
+    <group ref={spaceshipRef} position={position} name={name}>
       <Spaceship scale={[0.05, 0.05, 0.05]} />
       <RocketThrust />
     </group>

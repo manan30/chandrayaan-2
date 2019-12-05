@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { useThree, useFrame } from 'react-three-fiber';
-import { CameraHelper } from 'three';
+import { CameraHelper, Vector3 } from 'three';
 
 import Light from '../components/Lights';
 import Rocket from '../components/Rocket';
@@ -15,15 +15,19 @@ function EarthScene() {
   camera.near = 0.1;
   camera.far = 10000;
 
-  camera.position.set(0, 60, 300);
+  camera.position.set(0, 110, 300);
+  camera.lookAt(scene.position);
 
   // const cameraHelper = new CameraHelper(camera);
   // scene.add(cameraHelper);
 
   // const smokeParticles = Smoke({ scene });
-  // useFrame((_, delta) => {
-  //   animateSmoke(smokeParticles, delta);
-  // });
+  useFrame((_, delta) => {
+    const object = scene.getObjectByName('rocket');
+    camera.lookAt(object.position);
+    object.position.y += delta * 10;
+    // animateSmoke(smokeParticles, delta);
+  });
 
   return (
     <>
@@ -37,7 +41,7 @@ function EarthScene() {
         <meshNormalMaterial attach='material' />
       </mesh>
       <Suspense fallback={<FallbackMesh />}>
-        <Rocket position={[0, 80, 0]} />
+        <Rocket position={[0, 80, 0]} name={'rocket'} />
       </Suspense>
     </>
   );
