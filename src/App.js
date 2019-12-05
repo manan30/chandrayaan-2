@@ -1,14 +1,14 @@
 import React from 'react';
 import { Canvas } from './GlobalStyles';
-import MainScene from './views/MainScene';
-// import EarthScene from './views/EarthScene';
+// import MainScene from './views/MainScene';
+import EarthScene from './views/EarthScene';
 import Controls from './components/Controls';
 
 function App() {
   return (
     <Canvas>
-      <MainScene />
-      {/* <EarthScene /> */}
+      {/* <MainScene /> */}
+      <EarthScene />
       <Controls />
     </Canvas>
   );

@@ -10,9 +10,6 @@ function RocketThrust({ setRef }) {
     debug: false
   });
 
-  fire.position.y = -60;
-  fire.position.z = 2;
-
   fire.clearSources();
   fire.addSource(0.45, 0.1, 0.1, 0.5, 0.0, 1.0);
   fire.addSource(0.55, 0.1, 0.1, 0.5, 0.0, 1.0);
@@ -23,15 +20,17 @@ function RocketThrust({ setRef }) {
   fire.windVector.x = 0.0;
   fire.windVector.y = -0.75;
   fire.colorBias = 0.8;
-  fire.burnRate = 0.3;
-  fire.diffuse = 1.33;
-  fire.viscosity = 0.25;
-  fire.expansion = 0.25;
+  fire.burnRate = 1;
+  fire.diffuse = 2;
+  fire.viscosity = 0.7;
+  fire.expansion = 0.7;
   fire.swirl = 50.0;
   fire.drag = 0.35;
   fire.airSpeed = 12.0;
   fire.speed = 500.0;
   fire.massConservation = false;
+
+  fire.position.set(0, 0, 0);
 
   return <primitive object={fire} ref={setRef} />;
 }

@@ -1,10 +1,11 @@
 import React, { Suspense } from 'react';
-import { useThree } from 'react-three-fiber';
+import { useThree, useFrame } from 'react-three-fiber';
 import { CameraHelper } from 'three';
 
 import Light from '../components/Lights';
 import Rocket from '../components/Rocket';
 import FallbackMesh from '../components/FallbackMesh';
+// import { Smoke, animateSmoke } from '../components/Smoke';
 
 function EarthScene() {
   const { scene, camera } = useThree();
@@ -14,12 +15,15 @@ function EarthScene() {
   camera.near = 0.1;
   camera.far = 10000;
 
-  // camera.up.set(0, 0, 1);
-  camera.position.set(0, 60, 200);
-  console.log(scene);
+  camera.position.set(0, 60, 300);
 
   // const cameraHelper = new CameraHelper(camera);
   // scene.add(cameraHelper);
+
+  // const smokeParticles = Smoke({ scene });
+  // useFrame((_, delta) => {
+  //   animateSmoke(smokeParticles, delta);
+  // });
 
   return (
     <>
@@ -33,7 +37,7 @@ function EarthScene() {
         <meshNormalMaterial attach='material' />
       </mesh>
       <Suspense fallback={<FallbackMesh />}>
-        <Rocket position={[0, 60, 0]} />
+        <Rocket position={[0, 80, 0]} />
       </Suspense>
     </>
   );
