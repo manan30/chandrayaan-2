@@ -4,6 +4,8 @@ import { Fire } from 'three/examples/jsm/objects/Fire';
 import { PlaneBufferGeometry } from 'three';
 
 function RocketThrust({ setRef }) {
+  const fireRef = React.useRef();
+
   const fire = new Fire(new PlaneBufferGeometry(200, 200), {
     textureWidth: 512,
     textureHeight: 512,
@@ -24,13 +26,13 @@ function RocketThrust({ setRef }) {
   fire.diffuse = 2;
   fire.viscosity = 0.7;
   fire.expansion = 0.7;
-  fire.swirl = 50.0;
+  fire.swirl = 25.0;
   fire.drag = 0.35;
   fire.airSpeed = 12.0;
   fire.speed = 500.0;
   fire.massConservation = false;
 
-  fire.position.set(0, 0, 0);
+  fire.position.set(0, 2, 0);
 
   return <primitive object={fire} ref={setRef} />;
 }

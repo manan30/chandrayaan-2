@@ -15,7 +15,7 @@ function EarthScene() {
   camera.near = 0.1;
   camera.far = 10000;
 
-  camera.position.set(0, 110, 300);
+  camera.position.set(0, 110, 1000);
   camera.lookAt(scene.position);
 
   // const cameraHelper = new CameraHelper(camera);
@@ -23,9 +23,10 @@ function EarthScene() {
 
   // const smokeParticles = Smoke({ scene });
   useFrame((_, delta) => {
-    const object = scene.getObjectByName('rocket');
-    camera.lookAt(object.position);
-    object.position.y += delta * 10;
+    // const object = scene.getObjectByName('rocket');
+    // camera.lookAt(object.position);
+    // object.position.y += delta * 10;
+    // camera.position.y += delta * 50;
     // animateSmoke(smokeParticles, delta);
   });
 
