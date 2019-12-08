@@ -158,11 +158,20 @@ class TravelController {
         // }.bind(this)
         () => this.camera.lookAt(targetObject.position)
       )
-      .onComplete(
-        this.handleComplete.bind(this, targetObject, this.cameraTarget)
-      )
+      .onComplete(() => {
+        this.handleComplete.bind(this, targetObject, this.cameraTarget);
+        // // console.log(targetObject);
+        // new TWEEN.Tween(targetObject.material.opacity)
+        //   .to({ percent: 0 }, 1000)
+        //   .easing(TWEEN.Easing.Cubic.InOut)
+        //   .onUpdate(delta => {
+        //     // targetObject.material.opacity -= 0.12;
+        //     // console.log(delta);
+        //     this.camera.lookAt(new Vector3(140, 5, 100));
+        //   })
+        //   .start();
+      })
       .start();
-    // });
   }
 
   update(delta) {

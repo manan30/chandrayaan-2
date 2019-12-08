@@ -17,7 +17,12 @@ function CelestialObject({
     <group>
       <mesh ref={setRef} position={position}>
         <sphereBufferGeometry attach='geometry' args={[scale, 32, 32]} />
-        <meshLambertMaterial attach='material' map={texture} />
+        <meshLambertMaterial
+          attach='material'
+          map={texture}
+          opacity={1}
+          transparent
+        />
       </mesh>
       {orbitRequired && (
         <mesh position={position} rotation={[Math.PI / 2, 0, 0]}>
