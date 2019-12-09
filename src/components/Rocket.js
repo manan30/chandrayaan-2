@@ -10,19 +10,19 @@ function Rocket({ thrustRef, position, name }) {
   const spaceshipRef = React.useRef();
 
   useFrame(({ clock }, delta) => {
-    if (clock.elapsedTime > 5) return;
-    if (spaceshipRef.current) {
-      spaceshipRef.current.position.y += delta * 50;
-      if (thrustRef.current) {
-        const { width, height } = thrustRef.current.geometry.parameters;
-        thrustRef.current.geometry.dispose();
-        thrustRef.current.geometry = new PlaneBufferGeometry(
-          width,
-          height + delta * 50
-        );
-        thrustRef.current.position.y += delta * 12 + 3 / 60;
-      }
-    }
+    // if (clock.elapsedTime > 5) return;
+    // if (spaceshipRef.current) {
+    //   spaceshipRef.current.position.y += delta * 50;
+    //   if (thrustRef.current) {
+    //     const { width, height } = thrustRef.current.geometry.parameters;
+    //     thrustRef.current.geometry.dispose();
+    //     thrustRef.current.geometry = new PlaneBufferGeometry(
+    //       width,
+    //       height + delta * 50
+    //     );
+    //     thrustRef.current.position.y += delta * 12 + 3 / 60;
+    //   }
+    // }
   });
 
   return (
