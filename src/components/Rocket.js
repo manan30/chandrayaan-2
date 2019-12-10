@@ -6,8 +6,8 @@ import { PlaneBufferGeometry } from 'three';
 import Spaceship from './Spaceship';
 import RocketThrust from './RocketThrust';
 
-function Rocket({ thrustRef, position, name }) {
-  const spaceshipRef = React.useRef();
+function Rocket({ spaceshipRef, thrustRef, position, name }) {
+  // const spaceshipRef = React.useRef();
 
   useFrame(({ clock }, delta) => {
     // if (clock.elapsedTime > 5) return;
