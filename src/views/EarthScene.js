@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import { useThree, useFrame } from 'react-three-fiber';
-import { CameraHelper } from 'three';
 
 import Light from '../components/Lights';
 import Rocket from '../components/Rocket';
@@ -24,8 +23,8 @@ function EarthScene() {
   const earthSceneController = new EarthSceneController(scene, camera);
 
   setTimeout(() => {
-    earthSceneController.animate(rocketRef.current);
-  }, 10000);
+    if (rocketRef.current) earthSceneController.animate(rocketRef.current);
+  }, 5000);
 
   useFrame((_, delta) => {
     earthSceneController.update(delta);
@@ -44,11 +43,11 @@ function EarthScene() {
       </mesh>
       <Suspense fallback={<FallbackMesh />}>
         <LightTower
-          position={[0, -60, -400]}
+          position={[-225, -60, -500]}
           scale={[10, 10, 5]}
           pointLightPositions={[
-            [0, 100, -125],
-            [0, 200, -125]
+            [-200, 100, 250],
+            [-200, 200, 250]
           ]}
           spotLightPosition={[0, 300, -140]}
         />
@@ -63,6 +62,15 @@ function EarthScene() {
         />
         <LightTower
           position={[200, -60, 20]}
+          scale={[10, 10, 5]}
+          pointLightPositions={[
+            [225, 100, 260],
+            [225, 200, 260]
+          ]}
+          spotLightPosition={[225, 300, 260]}
+        />
+        <LightTower
+          position={[200, -60, -500]}
           scale={[10, 10, 5]}
           pointLightPositions={[
             [225, 100, 260],
