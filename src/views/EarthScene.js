@@ -1,16 +1,22 @@
 import React, { Suspense } from 'react';
 import { useThree, useFrame } from 'react-three-fiber';
 
+import { Fog, Color } from 'three';
 import Light from '../components/Lights';
 import Rocket from '../components/Rocket';
 import Launcher from '../components/Launcher';
 import LightTower from '../components/LightTower';
 import FallbackMesh from '../components/FallbackMesh';
 import EarthSceneController from '../Controllers/EarthSceneController';
+import Ground from '../components/Ground';
+import Road from '../components/Road';
 
 function EarthScene() {
   const rocketRef = React.useRef();
-  const { scene, camera } = useThree();
+  const { scene, camera, gl } = useThree();
+
+  gl.setClearColor(new Color(0x040911));
+  gl.setSize(window.innerWidth, window.innerHeight);
 
   camera.fov = 60;
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -19,6 +25,8 @@ function EarthScene() {
 
   camera.position.set(-400, 110, 300);
   camera.lookAt(scene.position);
+
+  scene.fog = new Fog(0x040911, 500, 20000);
 
   const earthSceneController = new EarthSceneController(scene, camera);
 
@@ -32,22 +40,23 @@ function EarthScene() {
 
   return (
     <>
-      {/* <Light color={0xffffff} type='ambientLight' /> */}
+      <Light color={0x000000} type='ambientLight' intensity={0.2} />
 
-      <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <planeBufferGeometry
-          attach='geometry'
-          args={[window.innerWidth, window.innerHeight]}
-        />
-        <meshBasicMaterial attach='material' color={0x000000} />
-      </mesh>
+      <Suspense fallback={<FallbackMesh />}>
+        <Ground />
+      </Suspense>
+
+      {/* <Suspense fallback={<FallbackMesh />}>
+        <Road />
+      </Suspense> */}
+
       <Suspense fallback={<FallbackMesh />}>
         <LightTower
           position={[-225, -60, -500]}
           scale={[10, 10, 5]}
           pointLightPositions={[
-            [-200, 100, 250],
-            [-200, 200, 250]
+            [-200, 100, -250],
+            [-200, 200, -250]
           ]}
           spotLightPosition={[0, 300, -140]}
         />
@@ -73,13 +82,25 @@ function EarthScene() {
           position={[200, -60, -500]}
           scale={[10, 10, 5]}
           pointLightPositions={[
-            [225, 100, 260],
-            [225, 200, 260]
+            [225, 100, -250],
+            [225, 200, -250]
           ]}
           spotLightPosition={[225, 300, 260]}
         />
       </Suspense>
       <Suspense fallback={<FallbackMesh />}>
+        <Light
+          type='spotLight'
+          intensity={1}
+          color={0xffffff}
+          position={[-150, 30, 0]}
+        />
+        <Light
+          type='spotLight'
+          intensity={1}
+          color={0xffffff}
+          position={[150, 30, 0]}
+        />
         <Launcher rotation={[0, Math.PI / 2, 0]} />
       </Suspense>
       <Suspense fallback={<FallbackMesh />}>

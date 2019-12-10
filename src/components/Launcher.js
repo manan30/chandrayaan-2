@@ -23,7 +23,7 @@ export default function Model(props) {
               attach='material'
               {...gltf.__$[2].material}
               name='mobilelauncher_mat'
-              color={0x0000ff}
+              color={0x3b4044}
             />
           </mesh>
           <mesh name='ML_HP_1_1'>
@@ -32,7 +32,7 @@ export default function Model(props) {
               attach='material'
               {...gltf.__$[3].material}
               name='mobilelauncher_railings_mat'
-              color={0x0000aa}
+              color={0x99a3a3}
             />
           </mesh>
         </group>

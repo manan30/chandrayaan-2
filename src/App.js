@@ -9,7 +9,7 @@ function App() {
     <Canvas>
       {/* <MainScene /> */}
       <EarthScene />
-      {/* <Controls /> */}
+      <Controls />
     </Canvas>
   );
 }

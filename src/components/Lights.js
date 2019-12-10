@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useThree } from 'react-three-fiber';
+import { PointLightHelper, SpotLightHelper } from 'three';
 // import { SpotLightHelper, PointLightHelper } from 'three';
 
 function Light({ type, color, ...props }) {
@@ -13,9 +14,11 @@ function Light({ type, color, ...props }) {
       lightRef.current.shadow.mapSize.width = 1024;
       lightRef.current.shadow.mapSize.height = 1024;
 
-      lightRef.current.shadow.camera.near = 500;
-      lightRef.current.shadow.camera.far = 4000;
+      lightRef.current.shadow.camera.near = 50;
+      lightRef.current.shadow.camera.far = 100;
       lightRef.current.shadow.camera.fov = 30;
+
+      // scene.add(new SpotLightHelper(lightRef.current));
     }
   });
 

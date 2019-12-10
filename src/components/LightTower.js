@@ -16,18 +16,21 @@ function LightTower({
         type='pointLight'
         args={[0xffffff, 1, 100]}
         position={pointLightPositions[0]}
+        intensity={1.3}
         castShadow
       />
       <Light
         type='pointLight'
         args={[0xffffff, 1, 100]}
         position={pointLightPositions[1]}
+        intensity={1.3}
         castShadow
       />
       <Light
         type='spotLight'
         args={[0xffffff]}
         position={spotLightPosition}
+        intensity={0.3}
         castShadow
       />
       <LightPole position={position} scale={scale} />

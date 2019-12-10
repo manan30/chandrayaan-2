@@ -16,7 +16,7 @@ class EarthSceneController {
   }
 
   animateCameraPosition2(object) {
-    this.camera.position.set(0, 20, 50);
+    this.camera.position.set(0, 40, 50);
     return new TWEEN.Tween(this.camera.position)
       .to({ x: 0, y: 100, z: 100 }, 7000)
       .easing(TWEEN.Easing.Cubic.InOut)
@@ -26,9 +26,18 @@ class EarthSceneController {
   }
 
   animateCameraPosition3(object) {
-    console.log(object);
+    this.camera.position.set(100, 20, 350);
+    return new TWEEN.Tween(this.camera.position)
+      .to({ x: 70, y: 100, z: 100 }, 7000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onUpdate(() => {
+        this.camera.lookAt(object.position);
+      });
+  }
+
+  animateCameraPosition4(object) {
     new TWEEN.Tween(this.camera.position)
-      .to({ x: 0, y: 150, z: 100 }, 5000)
+      .to({ x: 0, y: 250, z: 70 }, 5000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate(() => {
         this.camera.lookAt(object.position);
@@ -43,7 +52,9 @@ class EarthSceneController {
         this.animateCameraPosition2(object)
           .start()
           .onComplete(() => {
-            this.animateCameraPosition3(object);
+            this.animateCameraPosition3(object)
+              .start()
+              .onComplete(() => this.animateCameraPosition4(object));
           });
       });
   }
