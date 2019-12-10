@@ -7,9 +7,11 @@ import Rocket from '../components/Rocket';
 import Launcher from '../components/Launcher';
 import LightTower from '../components/LightTower';
 import FallbackMesh from '../components/FallbackMesh';
-import EarthSceneController from '../Controllers/EarthSceneController';
 import Ground from '../components/Ground';
 import Road from '../components/Road';
+import Factory from '../components/Factory';
+
+import EarthSceneController from '../Controllers/EarthSceneController';
 
 function EarthScene() {
   const rocketRef = React.useRef();
@@ -49,6 +51,10 @@ function EarthScene() {
       {/* <Suspense fallback={<FallbackMesh />}>
         <Road />
       </Suspense> */}
+
+      <Suspense fallback={<FallbackMesh />}>
+        <Factory position={[0, 0, -250]} scale={[0.05, 0.05, 0.05]} />
+      </Suspense>
 
       <Suspense fallback={<FallbackMesh />}>
         <LightTower
