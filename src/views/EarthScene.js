@@ -34,6 +34,12 @@ function EarthScene() {
 
   setTimeout(() => {
     if (rocketRef.current) earthSceneController.animate(rocketRef.current);
+    // if (rocketRef.current)
+    // console.log(
+    //   rocketRef.current.children[0].children[0].children[0].children[0]
+    //     .children[0].children[0].children[2]
+    // );
+    // console.log();
   }, 5000);
 
   useFrame((_, delta) => {

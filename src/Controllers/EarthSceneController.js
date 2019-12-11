@@ -1,4 +1,5 @@
 import TWEEN from '@tweenjs/tween.js';
+import { Vector3 } from 'three';
 
 class EarthSceneController {
   constructor(scene, camera) {
@@ -37,7 +38,7 @@ class EarthSceneController {
 
   animateCameraPosition4(object) {
     return new TWEEN.Tween(this.camera.position)
-      .to({ x: 0, y: 250, z: 70 }, 5000)
+      .to({ x: 0, y: 250, z: 170 }, 5000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate(() => {
         this.camera.lookAt(object.position);
@@ -45,14 +46,36 @@ class EarthSceneController {
   }
 
   animateCameraPosition5(object) {
-    new TWEEN.Tween(object.position)
-      .to({ x: 0, y: 400, z: 0 }, 7000)
+    return new TWEEN.Tween(object.position)
+      .to({ x: 0, y: 1000 }, 7000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate(() => {
         this.camera.lookAt(object.position);
+      });
+  }
+
+  animateCameraPosition6(object) {
+    new TWEEN.Tween(this.camera.position)
+      .to({ y: 1000 }, 7000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onUpdate(() => {
+        this.camera.lookAt(
+          new Vector3(
+            object.position.x,
+            object.position.y + 50,
+            object.position.z
+          )
+        );
       })
       .start();
   }
+
+  // boosterSeparation() {
+  //   this.cylinder = this.scene.getObjectByName('Cylinder003');
+  //   return new TWEEN.Tween(this.cylinder)
+  //     .to({ y: 2500 }, 5000)
+  //     .easing(TWEEN.Easing.Cubic.InOut);
+  // }
 
   animate(object) {
     [this.rocket, this.rocketThrust] = object.children;
@@ -68,8 +91,16 @@ class EarthSceneController {
                 this.animateCameraPosition4(object)
                   .start()
                   .onComplete(() => {
-                    this.rocketThrust.visible = true;
-                    this.animateCameraPosition5(object);
+                    this.animateCameraPosition5(object)
+                      .delay(2000)
+                      .onStart(() => {
+                        this.rocketThrust.visible = true;
+                        this.animateCameraPosition6(object);
+                      })
+                      .start();
+                    // .onComplete(() => {
+                    //   this.boosterSeparation().start();
+                    // });
                   })
               );
           });
@@ -80,10 +111,6 @@ class EarthSceneController {
     requestAnimationFrame(() => this.update());
     TWEEN.update(delta);
   }
-
-  // cancelUpdate() {}
-  // window.cancelAnimationFrame(this.update);
-  // }
 }
 
 export default EarthSceneController;
