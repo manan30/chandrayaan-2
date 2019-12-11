@@ -33,6 +33,7 @@ function RocketThrust({ setRef }) {
   fire.massConservation = false;
 
   fire.position.set(0, 2, 0);
+  fire.visible = false;
 
   return <primitive object={fire} ref={setRef} />;
 }

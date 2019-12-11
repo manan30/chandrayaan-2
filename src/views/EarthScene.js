@@ -42,7 +42,8 @@ function EarthScene() {
 
   return (
     <>
-      <Light color={0x000000} type='ambientLight' intensity={0.2} />
+      <Light color={0x000000} type='ambientLight' intensity={0.1} />
+      <hemisphereLight args={[0x040911, 0xffffff, 0.3]} />
 
       <Suspense fallback={<FallbackMesh />}>
         <Ground />

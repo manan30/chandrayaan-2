@@ -36,8 +36,17 @@ class EarthSceneController {
   }
 
   animateCameraPosition4(object) {
-    new TWEEN.Tween(this.camera.position)
+    return new TWEEN.Tween(this.camera.position)
       .to({ x: 0, y: 250, z: 70 }, 5000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onUpdate(() => {
+        this.camera.lookAt(object.position);
+      });
+  }
+
+  animateCameraPosition5(object) {
+    new TWEEN.Tween(object.position)
+      .to({ x: 0, y: 400, z: 0 }, 7000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate(() => {
         this.camera.lookAt(object.position);
@@ -46,6 +55,7 @@ class EarthSceneController {
   }
 
   animate(object) {
+    [this.rocket, this.rocketThrust] = object.children;
     this.animateCameraPosition1(object)
       .start()
       .onComplete(() => {
@@ -54,7 +64,14 @@ class EarthSceneController {
           .onComplete(() => {
             this.animateCameraPosition3(object)
               .start()
-              .onComplete(() => this.animateCameraPosition4(object));
+              .onComplete(() =>
+                this.animateCameraPosition4(object)
+                  .start()
+                  .onComplete(() => {
+                    this.rocketThrust.visible = true;
+                    this.animateCameraPosition5(object);
+                  })
+              );
           });
       });
   }
