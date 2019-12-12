@@ -55,7 +55,7 @@ class EarthSceneController {
   }
 
   animateCameraPosition6(object) {
-    new TWEEN.Tween(this.camera.position)
+    return new TWEEN.Tween(this.camera.position)
       .to({ y: 2000 }, 7000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate(() => {
@@ -66,13 +66,56 @@ class EarthSceneController {
             object.position.z
           )
         );
-      })
-      .start()
-      .onComplete(() => {
-        // this.camera.lookAt(object.position);
-        object.rotateZ(threeMath.degToRad(-60));
-        object.rotateY(threeMath.degToRad(90));
       });
+  }
+
+  startThrust() {
+    return new TWEEN.Tween({})
+      .to({}, 1000)
+      .delay(2000)
+      .onStart(() => (this.rocketThrust.visible = true));
+  }
+
+  rotateRocket(object) {
+    this.spaceshipObject = object;
+    return new TWEEN.Tween(this.spaceshipObject.rotation)
+      .to({ z: threeMath.degToRad(-60) }, 2000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onStart(() => {
+        new TWEEN.Tween(object.rotation)
+          .to({ y: threeMath.degToRad(15) }, 1000)
+          .easing(TWEEN.Easing.Cubic.InOut)
+          .start();
+      });
+  }
+
+  moveRocketForward(object) {
+    this.spaceshipObject = object;
+    return new TWEEN.Tween(this.spaceshipObject.position)
+      .to({ x: 900 }, 5000)
+      .easing(TWEEN.Easing.Cubic.InOut);
+  }
+
+  moveCameraForward(object) {
+    new TWEEN.Tween(this.camera.position)
+      .to({ x: 900 }, 5000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onUpdate(() => {
+        this.camera.lookAt(
+          new Vector3(
+            object.position.x,
+            object.position.y + 50,
+            object.position.z
+          )
+        );
+      })
+      .start();
+  }
+
+  fadeRocket(object) {
+    return new TWEEN.Tween({ opacity: 1 })
+      .to({ opacity: 0 }, 1000)
+      .onUpdate(data => console.log(data));
   }
 
   // boosterSeparation() {
@@ -96,17 +139,35 @@ class EarthSceneController {
                 this.animateCameraPosition4(object)
                   .start()
                   .onComplete(() => {
-                    this.animateCameraPosition5(object)
-                      .delay(2000)
-                      .onStart(() => {
-                        // console.log(this.rocketThrust);
-                        this.rocketThrust.visible = true;
-                        this.animateCameraPosition6(object);
-                      })
-                      .start();
-                    // .onComplete(() => {
-                    //   this.boosterSeparation().start();
-                    // });
+                    this.startThrust()
+                      .start()
+                      .onComplete(() => {
+                        this.animateCameraPosition5(object)
+                          .delay(2000)
+                          .onStart(() => {
+                            this.animateCameraPosition6(object).start();
+                          })
+                          .start()
+                          .onComplete(() =>
+                            this.rotateRocket(object)
+                              .start()
+                              .onComplete(() =>
+                                this.moveRocketForward(object)
+                                  .onStart(() => {
+                                    this.moveCameraForward(object);
+                                  })
+                                  .start()
+                                  .onComplete(() => {
+                                    this.fadeRocket(object)
+                                      .onStart(
+                                        () =>
+                                          (this.rocketThrust.visible = false)
+                                      )
+                                      .start();
+                                  })
+                              )
+                          );
+                      });
                   })
               );
           });
