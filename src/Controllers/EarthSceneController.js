@@ -1,5 +1,5 @@
 import TWEEN from '@tweenjs/tween.js';
-import { Vector3 } from 'three';
+import { Vector3, Math as threeMath } from 'three';
 
 class EarthSceneController {
   constructor(scene, camera) {
@@ -67,7 +67,12 @@ class EarthSceneController {
           )
         );
       })
-      .start();
+      .start()
+      .onComplete(() => {
+        // this.camera.lookAt(object.position);
+        object.rotateZ(threeMath.degToRad(-60));
+        object.rotateY(threeMath.degToRad(90));
+      });
   }
 
   // boosterSeparation() {
@@ -79,7 +84,6 @@ class EarthSceneController {
 
   animate(object) {
     [, this.rocket, this.rocketThrust] = object.children;
-    console.log(object.children);
     this.animateCameraPosition1(object)
       .start()
       .onComplete(() => {

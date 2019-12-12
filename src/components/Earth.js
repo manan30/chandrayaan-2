@@ -1,28 +1,27 @@
 import React from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { useLoader } from 'react-three-fiber';
 import { TextureLoader } from 'three';
-import Camera from './Camera';
 
 function Earth({ setRef, position, scale, textureURL }) {
   const texture = useLoader(TextureLoader, textureURL);
+  const ref = React.useRef();
+
+  // React.useEffect(() => console.log(ref.current));
 
   return (
-    <group>
-      <Camera />
-      <mesh ref={setRef} position={position}>
-        <sphereBufferGeometry attach='geometry' args={[scale, 32, 32]} />
-        <meshLambertMaterial attach='material' map={texture} />
-      </mesh>
-    </group>
+    <mesh ref={ref} position={position}>
+      <sphereBufferGeometry attach='geometry' args={[scale, 360, 360]} />
+      <meshLambertMaterial attach='material' map={texture} />
+    </mesh>
   );
 }
 
 Earth.propTypes = {
-  setRef: Proptypes.objectOf(Proptypes.any),
-  position: Proptypes.arrayOf(Proptypes.number),
-  scale: Proptypes.number,
-  textureURL: Proptypes.string
+  setRef: PropTypes.objectOf(PropTypes.any),
+  position: PropTypes.arrayOf(PropTypes.number),
+  scale: PropTypes.number,
+  textureURL: PropTypes.string
 };
 
 Earth.defaultProps = {

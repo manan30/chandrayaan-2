@@ -10,8 +10,10 @@ import FallbackMesh from '../components/FallbackMesh';
 import Ground from '../components/Ground';
 import Road from '../components/Road';
 import Factory from '../components/Factory';
+import Earth from '../components/Earth';
 
 import EarthSceneController from '../Controllers/EarthSceneController';
+import EarthTexture from '../assets/earth.jpg';
 
 function EarthScene() {
   const rocketRef = React.useRef();
@@ -121,6 +123,14 @@ function EarthScene() {
           position={[0, 90, 0]}
           name={'rocket'}
           spaceshipRef={rocketRef}
+        />
+      </Suspense>
+      <Suspense fallback={<FallbackMesh />}>
+        <Earth
+          position={[-400, 1900, 0]}
+          // position={[0, 200, 0]}
+          scale={20}
+          textureURL={EarthTexture}
         />
       </Suspense>
     </>
