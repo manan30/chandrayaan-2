@@ -1,45 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useFrame } from 'react-three-fiber';
 
-import { PlaneBufferGeometry } from 'three';
 import Spaceship from './Spaceship';
 import RocketThrust from './RocketThrust';
+import Lights from './Lights';
 
 function Rocket({ spaceshipRef, thrustRef, position, name }) {
-  // const spaceshipRef = React.useRef();
-
-  useFrame(({ clock }, delta) => {
-    // if (clock.elapsedTime > 5) return;
-    // if (spaceshipRef.current) {
-    //   spaceshipRef.current.position.y += delta * 50;
-    //   if (thrustRef.current) {
-    //     const { width, height } = thrustRef.current.geometry.parameters;
-    //     thrustRef.current.geometry.dispose();
-    //     thrustRef.current.geometry = new PlaneBufferGeometry(
-    //       width,
-    //       height + delta * 50
-    //     );
-    //     thrustRef.current.position.y += delta * 12 + 3 / 60;
-    //   }
-    // }
-  });
-
   return (
     <group ref={spaceshipRef} position={position} name={name}>
+      <Lights type='pointLight' color={0xffffff} position={[0, 80, 0]} />
       <Spaceship scale={[0.05, 0.05, 0.05]} />
-      <RocketThrust setRef={thrustRef} />
+      <RocketThrust />
     </group>
   );
 }
 
 Rocket.propTypes = {
+  spaceshipRef: PropTypes.objectOf(PropTypes.any),
   thrustRef: PropTypes.objectOf(PropTypes.any),
   position: PropTypes.arrayOf(PropTypes.number),
   name: PropTypes.string
 };
 
 Rocket.defaultProps = {
+  spaceshipRef: {},
   thrustRef: {},
   position: [],
   name: 'rocket'

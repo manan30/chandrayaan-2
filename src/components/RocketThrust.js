@@ -35,7 +35,7 @@ function RocketThrust({ setRef }) {
   fire.position.set(0, 2, 0);
   fire.visible = false;
 
-  return <primitive object={fire} ref={setRef} />;
+  return <primitive object={fire} />;
 }
 
 RocketThrust.propTypes = {

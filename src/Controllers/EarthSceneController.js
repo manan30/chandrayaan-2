@@ -47,7 +47,7 @@ class EarthSceneController {
 
   animateCameraPosition5(object) {
     return new TWEEN.Tween(object.position)
-      .to({ x: 0, y: 1000 }, 7000)
+      .to({ x: 0, y: 2000 }, 7000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate(() => {
         this.camera.lookAt(object.position);
@@ -56,7 +56,7 @@ class EarthSceneController {
 
   animateCameraPosition6(object) {
     new TWEEN.Tween(this.camera.position)
-      .to({ y: 1000 }, 7000)
+      .to({ y: 2000 }, 7000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate(() => {
         this.camera.lookAt(
@@ -78,7 +78,8 @@ class EarthSceneController {
   // }
 
   animate(object) {
-    [this.rocket, this.rocketThrust] = object.children;
+    [, this.rocket, this.rocketThrust] = object.children;
+    console.log(object.children);
     this.animateCameraPosition1(object)
       .start()
       .onComplete(() => {
@@ -94,6 +95,7 @@ class EarthSceneController {
                     this.animateCameraPosition5(object)
                       .delay(2000)
                       .onStart(() => {
+                        // console.log(this.rocketThrust);
                         this.rocketThrust.visible = true;
                         this.animateCameraPosition6(object);
                       })
