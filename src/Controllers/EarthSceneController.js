@@ -17,13 +17,17 @@ class EarthSceneController {
   }
 
   animateCameraPosition2(object) {
-    this.camera.position.set(0, 40, 50);
-    return new TWEEN.Tween(this.camera.position)
-      .to({ x: 0, y: 100, z: 100 }, 7000)
-      .easing(TWEEN.Easing.Cubic.InOut)
-      .onUpdate(() => {
-        this.camera.lookAt(object.position);
-      });
+    return (
+      new TWEEN.Tween(this.camera.position)
+        .to({ x: 0, y: 100, z: 100 }, 7000)
+        .easing(TWEEN.Easing.Cubic.InOut)
+        // .onStart(() => {
+
+        // })
+        .onUpdate(() => {
+          this.camera.lookAt(object.position);
+        })
+    );
   }
 
   animateCameraPosition3(object) {
@@ -112,7 +116,7 @@ class EarthSceneController {
       .start();
   }
 
-  fadeOutRocket(object) {
+  fadeOutRocket() {
     this.main = this.scene.getObjectByName('NurbsPath').children[0].material;
     this.cylinder1 = this.scene.getObjectByName(
       'Cylinder001'
@@ -145,6 +149,27 @@ class EarthSceneController {
       .start();
   }
 
+  fadeLightsOut() {
+    return new TWEEN.Tween({ intensity: 0.1 })
+      .to({ intensity: 0 }, 1000)
+      .onUpdate(data => {
+        this.scene.children[0].intensity = data.intensity;
+      });
+  }
+
+  fadeLightsIn() {
+    new TWEEN.Tween({ intensity: 0 })
+      .to({ intensity: 0.1 }, 1000)
+      .onUpdate(data => {
+        this.scene.children[0].intensity = data.intensity;
+      })
+      .start();
+  }
+
+  setCamera() {
+    this.camera.position.set(0, 40, 50);
+  }
+
   // boosterSeparation() {
   //   this.cylinder = this.scene.getObjectByName('Cylinder003');
   //   return new TWEEN.Tween(this.cylinder)
@@ -157,45 +182,54 @@ class EarthSceneController {
     this.animateCameraPosition1(object)
       .start()
       .onComplete(() => {
-        this.animateCameraPosition2(object)
+        this.fadeLightsOut()
           .start()
-          .onComplete(() => {
-            this.animateCameraPosition3(object)
+          .onComplete(() =>
+            this.animateCameraPosition2(object)
+              .delay(1500)
+              .onStart(() => {
+                // this.fadeLightsIn();
+                this.setCamera();
+              })
               .start()
-              .onComplete(() =>
-                this.animateCameraPosition4(object)
-                  .start()
-                  .onComplete(() => {
-                    this.startThrust()
-                      .start()
-                      .onComplete(() => {
-                        this.animateCameraPosition5(object)
-                          .delay(2000)
-                          .onStart(() => {
-                            this.animateCameraPosition6(object).start();
-                          })
-                          .start()
-                          .onComplete(() =>
-                            this.rotateRocket(object)
-                              .start()
-                              .onComplete(() =>
-                                this.moveRocketForward(object)
-                                  .onStart(() => {
-                                    this.moveCameraForward(object);
-                                  })
-                                  .start()
-                                  .onComplete(() => {
-                                    this.camera.lookAt(
-                                      new Vector3(900, 2000, 0)
-                                    );
-                                    this.fadeOutRocket(object);
-                                  })
-                              )
-                          );
-                      });
-                  })
-              );
-          });
+          );
+        // .onComplete(() => {
+        //   this.animateCameraPosition3(object)
+        //     .start()
+        //     .onComplete(() =>
+        //       this.animateCameraPosition4(object)
+        //         .start()
+        //         .onComplete(() => {
+        //           this.startThrust()
+        //             .start()
+        //             .onComplete(() => {
+        //               this.animateCameraPosition5(object)
+        //                 .delay(2000)
+        //                 .onStart(() => {
+        //                   this.animateCameraPosition6(object).start();
+        //                 })
+        //                 .start()
+        //                 .onComplete(() =>
+        //                   this.rotateRocket(object)
+        //                     .start()
+        //                     .onComplete(() =>
+        //                       this.moveRocketForward(object)
+        //                         .onStart(() => {
+        //                           this.moveCameraForward(object);
+        //                         })
+        //                         .start()
+        //                         .onComplete(() => {
+        //                           this.camera.lookAt(
+        //                             new Vector3(900, 2000, 0)
+        //                           );
+        //                           this.fadeOutRocket(object);
+        //                         })
+        //                     )
+        //                 );
+        //             });
+        //         })
+        //     );
+        // });
       });
   }
 
