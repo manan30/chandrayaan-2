@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import React, { useEffect, useRef } from 'react';
-import { useLoader, useFrame } from 'react-three-fiber';
+import React, { useRef } from 'react';
+import { useLoader } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import LanderURL from '../assets/lander.glb';
@@ -19,6 +19,7 @@ export default function Model(props) {
             {...gltf.__$[1].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='leg001'>
@@ -28,6 +29,7 @@ export default function Model(props) {
             {...gltf.__$[2].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='leg002'>
@@ -37,6 +39,7 @@ export default function Model(props) {
             {...gltf.__$[3].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='leg003'>
@@ -46,6 +49,7 @@ export default function Model(props) {
             {...gltf.__$[4].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Box003'>
@@ -55,6 +59,7 @@ export default function Model(props) {
             {...gltf.__$[5].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Sphere001'>
@@ -64,6 +69,7 @@ export default function Model(props) {
             {...gltf.__$[6].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='leg006'>
@@ -73,6 +79,7 @@ export default function Model(props) {
             {...gltf.__$[7].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='leg007'>
@@ -82,6 +89,7 @@ export default function Model(props) {
             {...gltf.__$[8].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='leg008'>
@@ -91,6 +99,7 @@ export default function Model(props) {
             {...gltf.__$[9].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder005'>
@@ -100,6 +109,7 @@ export default function Model(props) {
             {...gltf.__$[10].material}
             name='Material__27'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder006'>
@@ -108,6 +118,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[11].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder007'>
@@ -116,6 +128,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[12].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder008'>
@@ -124,6 +138,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[13].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder009'>
@@ -132,6 +148,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[14].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Box004'>
@@ -140,6 +158,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[15].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder014'>
@@ -148,6 +168,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[16].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Door'>
@@ -156,6 +178,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[17].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder015'>
@@ -164,6 +188,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[18].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder016'>
@@ -172,6 +198,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[19].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Door001'>
@@ -180,6 +208,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[20].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder017'>
@@ -188,6 +218,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[21].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder018'>
@@ -196,6 +228,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[22].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder019'>
@@ -204,6 +238,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[23].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder020'>
@@ -212,6 +248,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[24].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder021'>
@@ -220,6 +258,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[25].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder022'>
@@ -228,6 +268,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[26].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder023'>
@@ -236,6 +278,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[27].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder024'>
@@ -244,6 +288,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[28].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Box005'>
@@ -252,6 +298,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[29].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Object001'>
@@ -260,6 +308,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[30].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Box006'>
@@ -268,6 +318,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[31].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Box007'>
@@ -276,6 +328,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[32].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Object002'>
@@ -284,6 +338,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[33].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder026'>
@@ -292,6 +348,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[34].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Plane001'>
@@ -300,6 +358,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[35].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Object003'>
@@ -308,6 +368,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[36].material}
             name='Material__27'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Solar_panel'>
@@ -316,6 +378,8 @@ export default function Model(props) {
             attach='material'
             {...gltf.__$[37].material}
             name='Material__97'
+            transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Solar_panel001'>
@@ -325,6 +389,7 @@ export default function Model(props) {
             {...gltf.__$[38].material}
             name='Material__97'
             transparent
+            opacity={0}
           />
         </mesh>
         <group name='Box001'>
@@ -333,8 +398,10 @@ export default function Model(props) {
             <meshStandardMaterial
               attach='material'
               {...gltf.__$[40].material}
-              name='Matertransparential__27'
+              name='Matertransparent
+              opacity={0}ial__27'
               transparent
+              opacity={0}
             />
           </mesh>
           <mesh name='Box001_1_1'>
@@ -344,6 +411,7 @@ export default function Model(props) {
               {...gltf.__$[41].material}
               name='Material__97'
               transparent
+              opacity={0}
             />
           </mesh>
           <mesh name='Box001_1_2'>
@@ -353,6 +421,7 @@ export default function Model(props) {
               {...gltf.__$[42].material}
               name='Material__28'
               transparent
+              opacity={0}
             />
           </mesh>
           <mesh name='Box001_1_3'>
@@ -362,6 +431,7 @@ export default function Model(props) {
               {...gltf.__$[43].material}
               name='Material__72'
               transparent
+              opacity={0}
             />
           </mesh>
           <mesh name='Box001_1_4'>
@@ -371,6 +441,7 @@ export default function Model(props) {
               {...gltf.__$[44].material}
               name='03___Default'
               transparent
+              opacity={0}
             />
           </mesh>
         </group>
@@ -382,6 +453,7 @@ export default function Model(props) {
               {...gltf.__$[46].material}
               name='Material__27'
               transparent
+              opacity={0}
             />
           </mesh>
           <mesh name='Box008_1_1'>
@@ -391,6 +463,7 @@ export default function Model(props) {
               {...gltf.__$[47].material}
               name='03___Default'
               transparent
+              opacity={0}
             />
           </mesh>
         </group>
@@ -401,6 +474,7 @@ export default function Model(props) {
             {...gltf.__$[48].material}
             name='wire_015015015'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder002'>
@@ -410,6 +484,7 @@ export default function Model(props) {
             {...gltf.__$[49].material}
             name='wire_015015015'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder003'>
@@ -419,6 +494,7 @@ export default function Model(props) {
             {...gltf.__$[50].material}
             name='wire_015015015'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder004'>
@@ -428,6 +504,7 @@ export default function Model(props) {
             {...gltf.__$[51].material}
             name='wire_015015015'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder010'>
@@ -437,6 +514,7 @@ export default function Model(props) {
             {...gltf.__$[52].material}
             name='wire_043043043'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder011'>
@@ -446,6 +524,7 @@ export default function Model(props) {
             {...gltf.__$[53].material}
             name='wire_043043043'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder012'>
@@ -455,6 +534,7 @@ export default function Model(props) {
             {...gltf.__$[54].material}
             name='wire_043043043'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder013'>
@@ -464,6 +544,7 @@ export default function Model(props) {
             {...gltf.__$[55].material}
             name='wire_043043043'
             transparent
+            opacity={0}
           />
         </mesh>
         <mesh name='Cylinder025'>
@@ -473,6 +554,7 @@ export default function Model(props) {
             {...gltf.__$[56].material}
             name='wire_043043043'
             transparent
+            opacity={0}
           />
         </mesh>
       </scene>

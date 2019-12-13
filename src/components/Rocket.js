@@ -18,7 +18,6 @@ function Rocket({ spaceshipRef, thrustRef, position, name }) {
           position={[0, 70, 0]}
           scale={[0.1, 0.1, 0.1]}
           rotation={[Math.degToRad(180), 0, 0]}
-          visible={false}
         />
       </Suspense>
     </group>

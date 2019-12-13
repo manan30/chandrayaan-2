@@ -38,6 +38,7 @@ function Spaceship({ setRef, scale, position, name }) {
                       attach='material'
                       {...gltf.__$[6].material}
                       name='MainRocket_Mat'
+                      transparent
                     />
                   </mesh>
                 </object3D>
@@ -54,6 +55,7 @@ function Spaceship({ setRef, scale, position, name }) {
                       attach='material'
                       {...gltf.__$[8].material}
                       name='Others_Mat'
+                      transparent
                     />
                   </mesh>
                 </object3D>
@@ -79,6 +81,7 @@ function Spaceship({ setRef, scale, position, name }) {
                       attach='material'
                       {...gltf.__$[10].material}
                       name='Booster_Mat'
+                      transparent
                     />
                   </mesh>
                 </object3D>

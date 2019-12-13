@@ -112,11 +112,38 @@ class EarthSceneController {
       .start();
   }
 
-  // fadeRocket(object) {
-  //   return new TWEEN.Tween({ opacity: 1 })
-  //     .to({ opacity: 0 }, 1000)
-  //     .onUpdate(data => console.log(data));
-  // }
+  fadeOutRocket(object) {
+    this.main = this.scene.getObjectByName('NurbsPath').children[0].material;
+    this.cylinder1 = this.scene.getObjectByName(
+      'Cylinder001'
+    ).children[0].material;
+    this.cylinder2 = this.scene.getObjectByName(
+      'Cylinder003'
+    ).children[0].material;
+    return new TWEEN.Tween({ opacity: 1 })
+      .to({ opacity: 0 }, 1000)
+      .onUpdate(data => {
+        this.main.opacity = data.opacity;
+        this.cylinder1.opacity = data.opacity;
+        this.cylinder2.opacity = data.opacity;
+      })
+      .onStart(() => {
+        this.fadeInLander();
+        this.rocketThrust.visible = false;
+      })
+      .start();
+  }
+
+  fadeInLander() {
+    new TWEEN.Tween({ opacity: 0 })
+      .to({ opacity: 1 }, 1000)
+      .onUpdate(data => {
+        this.lander.children[0].children.forEach(child => {
+          if (child.type === 'Mesh') child.material.opacity = data.opacity;
+        });
+      })
+      .start();
+  }
 
   // boosterSeparation() {
   //   this.cylinder = this.scene.getObjectByName('Cylinder003');
@@ -161,6 +188,7 @@ class EarthSceneController {
                                     this.camera.lookAt(
                                       new Vector3(900, 2000, 0)
                                     );
+                                    this.fadeOutRocket(object);
                                   })
                               )
                           );
