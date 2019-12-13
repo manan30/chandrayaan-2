@@ -112,11 +112,11 @@ class EarthSceneController {
       .start();
   }
 
-  fadeRocket(object) {
-    return new TWEEN.Tween({ opacity: 1 })
-      .to({ opacity: 0 }, 1000)
-      .onUpdate(data => console.log(data));
-  }
+  // fadeRocket(object) {
+  //   return new TWEEN.Tween({ opacity: 1 })
+  //     .to({ opacity: 0 }, 1000)
+  //     .onUpdate(data => console.log(data));
+  // }
 
   // boosterSeparation() {
   //   this.cylinder = this.scene.getObjectByName('Cylinder003');
@@ -158,12 +158,9 @@ class EarthSceneController {
                                   })
                                   .start()
                                   .onComplete(() => {
-                                    this.fadeRocket(object)
-                                      .onStart(
-                                        () =>
-                                          (this.rocketThrust.visible = false)
-                                      )
-                                      .start();
+                                    this.camera.lookAt(
+                                      new Vector3(900, 2000, 0)
+                                    );
                                   })
                               )
                           );

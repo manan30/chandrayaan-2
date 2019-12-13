@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { useThree, useFrame } from 'react-three-fiber';
-
 import { Fog, Color } from 'three';
+
 import Light from '../components/Lights';
 import Rocket from '../components/Rocket';
 import Launcher from '../components/Launcher';
@@ -11,9 +11,12 @@ import Ground from '../components/Ground';
 import Road from '../components/Road';
 import Factory from '../components/Factory';
 import Earth from '../components/Earth';
+import CelestialObject from '../components/CelestialObject';
 
 import EarthSceneController from '../Controllers/EarthSceneController';
-import EarthTexture from '../assets/earth.jpg';
+
+import EarthTextureURL from '../assets/earth.jpg';
+import MoonTextureURL from '../assets/moon.jpg';
 
 function EarthScene() {
   const rocketRef = React.useRef();
@@ -130,7 +133,14 @@ function EarthScene() {
           position={[-400, 1900, 0]}
           // position={[0, 200, 0]}
           scale={20}
-          textureURL={EarthTexture}
+          textureURL={EarthTextureURL}
+        />
+      </Suspense>
+      <Suspense fallback={<FallbackMesh />}>
+        <CelestialObject
+          position={[1100, 2200, -100]}
+          scale={50}
+          textureURL={MoonTextureURL}
         />
       </Suspense>
     </>
