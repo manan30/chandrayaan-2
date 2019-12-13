@@ -1,5 +1,5 @@
 import TWEEN from '@tweenjs/tween.js';
-import { Vector3, Math as threeMath } from 'three';
+import { Vector3, Math as threeMath, PlaneBufferGeometry } from 'three';
 
 class EarthSceneController {
   constructor(scene, camera) {
@@ -79,7 +79,7 @@ class EarthSceneController {
   rotateRocket(object) {
     this.spaceshipObject = object;
     return new TWEEN.Tween(this.spaceshipObject.rotation)
-      .to({ z: threeMath.degToRad(-60) }, 2000)
+      .to({ z: threeMath.degToRad(-60) }, 4000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
         new TWEEN.Tween(object.rotation)
@@ -126,7 +126,7 @@ class EarthSceneController {
   // }
 
   animate(object) {
-    [, this.rocket, this.rocketThrust] = object.children;
+    [, this.rocket, this.rocketThrust, this.lander] = object.children;
     this.animateCameraPosition1(object)
       .start()
       .onComplete(() => {
