@@ -14,11 +14,7 @@ function Rocket({ spaceshipRef, thrustRef, position, name }) {
       <Spaceship scale={[0.05, 0.05, 0.05]} />
       <RocketThrust />
       <Suspense fallback={<mesh />}>
-        <Lander
-          position={[0, 70, 0]}
-          scale={[0.1, 0.1, 0.1]}
-          rotation={[Math.degToRad(180), 0, 0]}
-        />
+        <Lander position={[0, 70, 0]} scale={[0.1, 0.1, 0.1]} />
       </Suspense>
     </group>
   );

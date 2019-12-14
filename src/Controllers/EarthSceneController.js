@@ -17,6 +17,7 @@ class EarthSceneController {
   }
 
   animateCameraPosition2(object) {
+    this.camera.position.set(0, 40, 50);
     return (
       new TWEEN.Tween(this.camera.position)
         .to({ x: 0, y: 100, z: 100 }, 7000)
@@ -86,6 +87,11 @@ class EarthSceneController {
       .to({ z: threeMath.degToRad(-60) }, 4000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
+        new TWEEN.Tween(this.camera.position)
+          .to({ z: 100 }, 2000)
+          .easing(TWEEN.Easing.Cubic.InOut)
+          .start();
+
         new TWEEN.Tween(object.rotation)
           .to({ y: threeMath.degToRad(15) }, 1000)
           .easing(TWEEN.Easing.Cubic.InOut)
@@ -116,7 +122,7 @@ class EarthSceneController {
       .start();
   }
 
-  fadeOutRocket() {
+  fadeOutRocket(object) {
     this.main = this.scene.getObjectByName('NurbsPath').children[0].material;
     this.cylinder1 = this.scene.getObjectByName(
       'Cylinder001'
@@ -125,22 +131,33 @@ class EarthSceneController {
       'Cylinder003'
     ).children[0].material;
     return new TWEEN.Tween({ opacity: 1 })
-      .to({ opacity: 0 }, 1000)
+      .to({ opacity: 0 }, 1500)
       .onUpdate(data => {
         this.main.opacity = data.opacity;
         this.cylinder1.opacity = data.opacity;
         this.cylinder2.opacity = data.opacity;
       })
       .onStart(() => {
-        this.fadeInLander();
+        this.fadeInLander(object);
         this.rocketThrust.visible = false;
-      })
-      .start();
+      });
   }
 
-  fadeInLander() {
+  fadeInLander(object) {
     new TWEEN.Tween({ opacity: 0 })
-      .to({ opacity: 1 }, 1000)
+      .to({ opacity: 1 }, 2000)
+      .onStart(() => {
+        // new TWEEN.Tween(object.rotation)
+        //   .to({ z: threeMath.degToRad(60) }, 4000)
+        //   .easing(TWEEN.Easing.Cubic.InOut)
+        //   .onStart(() => {
+        //     new TWEEN.Tween(object.rotation)
+        //       .to({ y: threeMath.degToRad(-15) }, 1000)
+        //       .easing(TWEEN.Easing.Cubic.InOut)
+        //       .start();
+        //   });
+        console.log(this.lander.rotation);
+      })
       .onUpdate(data => {
         this.lander.children[0].children.forEach(child => {
           if (child.type === 'Mesh') child.material.opacity = data.opacity;
@@ -166,6 +183,72 @@ class EarthSceneController {
       .start();
   }
 
+  rotateLander() {
+    return new TWEEN.Tween(this.lander.rotation)
+      .to({ x: threeMath.degToRad(0) }, 5000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onStart(() => {
+        // new TWEEN.Tween(this.camera.position)
+        //   .to(
+        //     {
+        //       x: this.camera.position.x + 200
+        //     },
+        //     5000
+        //   )
+        //   .easing(TWEEN.Easing.Cubic.InOut)
+        //   .start();
+      })
+      .onUpdate(() => {
+        // this.camera.lookAt(this.lander.position);
+      });
+  }
+
+  positionCameraBetweenLM() {
+    return new TWEEN.Tween(this.camera.position)
+      .to(
+        {
+          x: this.camera.position.x + 500,
+          z: 500
+        },
+        3000
+      )
+      .easing(TWEEN.Easing.Cubic.InOut);
+  }
+
+  moveLander() {
+    return new TWEEN.Tween(this.lander.position)
+      .to({ y: 1000, z: 300 }, 6000)
+      .easing(TWEEN.Easing.Cubic.InOut);
+  }
+
+  zoomInCamera(object) {
+    return new TWEEN.Tween(this.camera.position)
+      .to(
+        {
+          x: this.camera.position.x + 600,
+          y: 2150,
+          z: 80
+        },
+        2000
+      )
+      .easing(TWEEN.Easing.Cubic.InOut);
+    // .onUpdate(() => {
+    //   this.camera.lookAt(object.position);
+    // });
+  }
+
+  startDescent() {
+    return new TWEEN.Tween(this.lander.position)
+      .to({ x: 400 }, 4000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onStart(() => {
+        new TWEEN.Tween(this.lander.rotation)
+          .to({ z: threeMath.degToRad(60) })
+          .easing(TWEEN.Easing.Cubic.InOut)
+          .start();
+      });
+  }
+
   setCamera() {
     this.camera.position.set(0, 40, 50);
   }
@@ -182,54 +265,64 @@ class EarthSceneController {
     this.animateCameraPosition1(object)
       .start()
       .onComplete(() => {
-        this.fadeLightsOut()
+        // this.fadeLightsOut()
+        //   .start()
+        //   .onComplete(() =>
+        this.animateCameraPosition2(object)
+          // .delay(1500)
+          // .onStart(() => {
+          //   // this.fadeLightsIn();
+          //   this.setCamera();
+          // })
           .start()
-          .onComplete(() =>
-            this.animateCameraPosition2(object)
-              .delay(1500)
-              .onStart(() => {
-                // this.fadeLightsIn();
-                this.setCamera();
-              })
+          // );
+          .onComplete(() => {
+            this.animateCameraPosition3(object)
               .start()
-          );
-        // .onComplete(() => {
-        //   this.animateCameraPosition3(object)
-        //     .start()
-        //     .onComplete(() =>
-        //       this.animateCameraPosition4(object)
-        //         .start()
-        //         .onComplete(() => {
-        //           this.startThrust()
-        //             .start()
-        //             .onComplete(() => {
-        //               this.animateCameraPosition5(object)
-        //                 .delay(2000)
-        //                 .onStart(() => {
-        //                   this.animateCameraPosition6(object).start();
-        //                 })
-        //                 .start()
-        //                 .onComplete(() =>
-        //                   this.rotateRocket(object)
-        //                     .start()
-        //                     .onComplete(() =>
-        //                       this.moveRocketForward(object)
-        //                         .onStart(() => {
-        //                           this.moveCameraForward(object);
-        //                         })
-        //                         .start()
-        //                         .onComplete(() => {
-        //                           this.camera.lookAt(
-        //                             new Vector3(900, 2000, 0)
-        //                           );
-        //                           this.fadeOutRocket(object);
-        //                         })
-        //                     )
-        //                 );
-        //             });
-        //         })
-        //     );
-        // });
+              .onComplete(() =>
+                this.animateCameraPosition4(object)
+                  .start()
+                  .onComplete(() => {
+                    this.startThrust()
+                      .start()
+                      .onComplete(() => {
+                        this.animateCameraPosition5(object)
+                          .delay(2000)
+                          .onStart(() => {
+                            this.animateCameraPosition6(object).start();
+                          })
+                          .start()
+                          .onComplete(() =>
+                            this.rotateRocket(object)
+                              .start()
+                              .onComplete(() => {
+                                this.fadeOutRocket(object)
+                                  .start()
+                                  .onComplete(() => {
+                                    this.rotateLander()
+                                      .start()
+                                      .onComplete(() => {
+                                        this.positionCameraBetweenLM()
+                                          .start()
+                                          .onComplete(() => {
+                                            this.moveLander()
+                                              .start()
+                                              .onComplete(() => {
+                                                this.zoomInCamera(object)
+                                                  .start()
+                                                  .onComplete(() => {
+                                                    this.startDescent().start();
+                                                  });
+                                              });
+                                          });
+                                      });
+                                  });
+                              })
+                          );
+                      });
+                  })
+              );
+          });
       });
   }
 
