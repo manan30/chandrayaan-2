@@ -147,23 +147,25 @@ class EarthSceneController {
     new TWEEN.Tween({ opacity: 0 })
       .to({ opacity: 1 }, 2000)
       .onStart(() => {
-        // new TWEEN.Tween(object.rotation)
-        //   .to({ z: threeMath.degToRad(60) }, 4000)
-        //   .easing(TWEEN.Easing.Cubic.InOut)
-        //   .onStart(() => {
-        //     new TWEEN.Tween(object.rotation)
-        //       .to({ y: threeMath.degToRad(-15) }, 1000)
-        //       .easing(TWEEN.Easing.Cubic.InOut)
-        //       .start();
-        //   });
-        console.log(this.lander.rotation);
+        console.log(object.rotation);
       })
       .onUpdate(data => {
         this.lander.children[0].children.forEach(child => {
           if (child.type === 'Mesh') child.material.opacity = data.opacity;
         });
       })
-      .start();
+      .start()
+      .onComplete(() => {
+        new TWEEN.Tween(this.lander.rotation)
+          .to({ z: threeMath.degToRad(60) }, 4000)
+          .easing(TWEEN.Easing.Cubic.InOut)
+          .onStart(() => {
+            new TWEEN.Tween(this.lander.rotation)
+              .to({ y: threeMath.degToRad(-15) }, 1000)
+              .easing(TWEEN.Easing.Cubic.InOut)
+              .start();
+          });
+      });
   }
 
   fadeLightsOut() {
