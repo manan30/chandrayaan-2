@@ -1,5 +1,5 @@
 import TWEEN from '@tweenjs/tween.js';
-import { Vector3, Math as threeMath, PlaneBufferGeometry } from 'three';
+import { Vector3, Math as threeMath } from 'three';
 
 class EarthSceneController {
   constructor(scene, camera) {
@@ -205,11 +205,34 @@ class EarthSceneController {
       });
   }
 
+  reorientLander(object) {
+    this.lander = object;
+    return new TWEEN.Tween(this.lander.rotation)
+      .to({ z: threeMath.degToRad(-90) }, 2000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onStart(() => {
+        new TWEEN.Tween(this.camera.position)
+          .to(
+            {
+              x: this.camera.position.x + 100,
+              z: this.camera.position.z + 70
+            },
+            2000
+          )
+          .start();
+
+        new TWEEN.Tween(this.lander.rotation)
+          .to({ y: threeMath.degToRad(0) }, 2000)
+          .easing(TWEEN.Easing.Cubic.InOut)
+          .start();
+      });
+  }
+
   positionCameraBetweenLM() {
     return new TWEEN.Tween(this.camera.position)
       .to(
         {
-          x: this.camera.position.x + 500,
+          // x: this.camera.position.x + 300,
           z: 500
         },
         3000
@@ -219,17 +242,22 @@ class EarthSceneController {
 
   moveLander() {
     return new TWEEN.Tween(this.lander.position)
-      .to({ y: 1000, z: 300 }, 6000)
-      .easing(TWEEN.Easing.Cubic.InOut);
+      .to({ x: 1000 }, 12000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onStart(() => {
+        new TWEEN.Tween(this.camera.position)
+          .to({ x: 1000 }, 12000)
+          .easing(TWEEN.Easing.Cubic.InOut)
+          .start();
+      });
   }
 
   zoomInCamera(object) {
     return new TWEEN.Tween(this.camera.position)
       .to(
         {
-          x: this.camera.position.x + 600,
-          y: 2150,
-          z: 80
+          x: this.camera.position.x + 500,
+          z: 200
         },
         2000
       )
@@ -237,6 +265,21 @@ class EarthSceneController {
     // .onUpdate(() => {
     //   this.camera.lookAt(object.position);
     // });
+  }
+
+  climbToTheMoon() {
+    return new TWEEN.Tween(this.lander.position)
+      .to(
+        {
+          x: this.lander.position.x + 400,
+          y: this.lander.position.y + 200
+        },
+        7000
+      )
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onComplete(() => {
+        // this.camera.rotateX(threeMath.degToRad(90));
+      });
   }
 
   startDescent() {
@@ -301,7 +344,7 @@ class EarthSceneController {
                                 this.fadeOutRocket(object)
                                   .start()
                                   .onComplete(() => {
-                                    this.rotateLander()
+                                    this.reorientLander(object)
                                       .start()
                                       .onComplete(() => {
                                         this.positionCameraBetweenLM()
@@ -310,11 +353,18 @@ class EarthSceneController {
                                             this.moveLander()
                                               .start()
                                               .onComplete(() => {
-                                                this.zoomInCamera(object)
-                                                  .start()
-                                                  .onComplete(() => {
-                                                    this.startDescent().start();
-                                                  });
+                                                // .onComplete(() => {
+                                                this.climbToTheMoon().start();
+                                                //     .onComplete(() => {
+                                                //       this.camera.lookAt(
+                                                //         new Vector3(
+                                                //           2000,
+                                                //           2000,
+                                                //           0
+                                                //         )
+                                                //       );
+                                                //     });
+                                                // });
                                               });
                                           });
                                       });
