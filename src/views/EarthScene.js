@@ -1,6 +1,12 @@
 import React, { Suspense } from 'react';
 import { useThree, useFrame } from 'react-three-fiber';
-import { Fog, Color, Math as threeMath } from 'three';
+import {
+  Fog,
+  Color,
+  Math as threeMath,
+  PerspectiveCamera,
+  CameraHelper
+} from 'three';
 
 import Light from '../components/Lights';
 import Rocket from '../components/Rocket';
@@ -35,6 +41,19 @@ function EarthScene() {
   scene.fog = new Fog(0x040911, 500, 20000);
 
   const earthSceneController = new EarthSceneController(scene, camera);
+
+  // const secondaryCamera = new PerspectiveCamera(
+  //   60,
+  //   window.innerWidth / window.innerHeight,
+  //   10,
+  //   100
+  // );
+  // secondaryCamera.position.set(0, 100, 0);
+
+  // const secondaryCameraHelper = new CameraHelper(secondaryCamera);
+
+  // scene.add(secondaryCamera);
+  // scene.add(secondaryCameraHelper);
 
   setTimeout(() => {
     if (rocketRef.current) earthSceneController.animate(rocketRef.current);
@@ -129,9 +148,9 @@ function EarthScene() {
       </Suspense>
       <Suspense fallback={<FallbackMesh />}>
         <Earth
-          position={[-400, 1900, 0]}
+          position={[-400, 2000, 0]}
           // position={[0, 200, 0]}
-          scale={20}
+          scale={30}
           textureURL={EarthTextureURL}
         />
       </Suspense>

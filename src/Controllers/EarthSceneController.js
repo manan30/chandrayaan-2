@@ -1,5 +1,5 @@
 import TWEEN from '@tweenjs/tween.js';
-import { Vector3, Math as threeMath } from 'three';
+import { Vector3, Math as threeMath, PerspectiveCamera } from 'three';
 
 class EarthSceneController {
   constructor(scene, camera) {
@@ -276,9 +276,30 @@ class EarthSceneController {
         },
         7000
       )
+      .easing(TWEEN.Easing.Cubic.InOut);
+  }
+
+  reorientCameraAndLander() {
+    return new TWEEN.Tween(this.camera.position)
+      .to(
+        {
+          x: this.camera.position.x + 700,
+          y: this.camera.position.y + 150,
+          z: this.camera.position.z - 350
+        },
+        3000
+      )
       .easing(TWEEN.Easing.Cubic.InOut)
-      .onComplete(() => {
-        // this.camera.rotateX(threeMath.degToRad(90));
+      .onStart(() => {
+        new TWEEN.Tween(this.camera.rotation)
+          .to({ y: threeMath.degToRad(90) }, 3000)
+          .easing(TWEEN.Easing.Cubic.InOut)
+          .start();
+
+        new TWEEN.Tween(this.lander.rotation)
+          .to({ z: threeMath.degToRad(0) }, 6000)
+          .easing(TWEEN.Easing.Cubic.InOut)
+          .start();
       });
   }
 
@@ -354,7 +375,11 @@ class EarthSceneController {
                                               .start()
                                               .onComplete(() => {
                                                 // .onComplete(() => {
-                                                this.climbToTheMoon().start();
+                                                this.climbToTheMoon()
+                                                  .start()
+                                                  .onComplete(() =>
+                                                    this.reorientCameraAndLander().start()
+                                                  );
                                                 //     .onComplete(() => {
                                                 //       this.camera.lookAt(
                                                 //         new Vector3(
