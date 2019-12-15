@@ -305,11 +305,14 @@ class EarthSceneController {
 
   startDescent() {
     return new TWEEN.Tween(this.lander.position)
-      .to({ x: 400 }, 4000)
+      .to(
+        { x: this.lander.position.x + 50, y: this.lander.position.y - 175 },
+        7000
+      )
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
-        new TWEEN.Tween(this.lander.rotation)
-          .to({ z: threeMath.degToRad(60) })
+        new TWEEN.Tween(this.camera.position)
+          .to({ x: this.camera.position.x - 100 }, 5000)
           .easing(TWEEN.Easing.Cubic.InOut)
           .start();
       });
@@ -378,7 +381,11 @@ class EarthSceneController {
                                                 this.climbToTheMoon()
                                                   .start()
                                                   .onComplete(() =>
-                                                    this.reorientCameraAndLander().start()
+                                                    this.reorientCameraAndLander()
+                                                      .start()
+                                                      .onComplete(() => {
+                                                        this.startDescent().start();
+                                                      })
                                                   );
                                                 //     .onComplete(() => {
                                                 //       this.camera.lookAt(
