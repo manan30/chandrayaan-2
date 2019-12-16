@@ -147,7 +147,7 @@ class EarthSceneController {
     new TWEEN.Tween({ opacity: 0 })
       .to({ opacity: 1 }, 2000)
       .onStart(() => {
-        console.log(object.rotation);
+        // console.log(object.rotation);
       })
       .onUpdate(data => {
         this.lander.children[0].children.forEach(child => {
@@ -219,7 +219,10 @@ class EarthSceneController {
             },
             2000
           )
-          .start();
+          .start()
+          .onComplete(() => {
+            this.scene.getObjectByName('earth').children[0].position.x = 0;
+          });
 
         new TWEEN.Tween(this.lander.rotation)
           .to({ y: threeMath.degToRad(0) }, 2000)
@@ -233,7 +236,7 @@ class EarthSceneController {
       .to(
         {
           // x: this.camera.position.x + 300,
-          z: 500
+          z: 50
         },
         3000
       )
@@ -246,7 +249,7 @@ class EarthSceneController {
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
         new TWEEN.Tween(this.camera.position)
-          .to({ x: 1000 }, 12000)
+          .to({ x: 1000, z: this.camera.position.z + 400 }, 12000)
           .easing(TWEEN.Easing.Cubic.InOut)
           .start();
       });
@@ -291,6 +294,8 @@ class EarthSceneController {
       )
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
+        this.scene.getObjectByName('earth').position.y = 2200;
+
         new TWEEN.Tween(this.camera.rotation)
           .to({ y: threeMath.degToRad(90) }, 3000)
           .easing(TWEEN.Easing.Cubic.InOut)
@@ -384,7 +389,15 @@ class EarthSceneController {
                                                     this.reorientCameraAndLander()
                                                       .start()
                                                       .onComplete(() => {
-                                                        this.startDescent().start();
+                                                        this.startDescent()
+                                                          .start()
+                                                          .onComplete(() => {
+                                                            this.camera.lookAt(
+                                                              this.scene.getObjectByName(
+                                                                'earth'
+                                                              ).position
+                                                            );
+                                                          });
                                                       })
                                                   );
                                                 //     .onComplete(() => {

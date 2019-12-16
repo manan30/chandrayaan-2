@@ -33,36 +33,31 @@ function EarthScene() {
   camera.fov = 60;
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.near = 0.1;
-  camera.far = 10000;
+  camera.far = 20000;
 
   camera.position.set(-400, 110, 300);
   camera.lookAt(scene.position);
 
   scene.fog = new Fog(0x040911, 500, 20000);
 
-  const earthSceneController = new EarthSceneController(scene, camera);
-
   // const secondaryCamera = new PerspectiveCamera(
-  //   60,
+  //   10,
   //   window.innerWidth / window.innerHeight,
   //   10,
   //   100
   // );
-  // secondaryCamera.position.set(0, 100, 0);
+
+  // secondaryCamera.position.set(0, 100, 50);
 
   // const secondaryCameraHelper = new CameraHelper(secondaryCamera);
 
   // scene.add(secondaryCamera);
   // scene.add(secondaryCameraHelper);
 
+  const earthSceneController = new EarthSceneController(scene, camera);
+
   setTimeout(() => {
     if (rocketRef.current) earthSceneController.animate(rocketRef.current);
-    // if (rocketRef.current)
-    // console.log(
-    //   rocketRef.current.children[0].children[0].children[0].children[0]
-    //     .children[0].children[0].children[2]
-    // );
-    // console.log();
   }, 5000);
 
   useFrame((_, delta) => {

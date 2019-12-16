@@ -10,10 +10,12 @@ function Earth({ setRef, position, scale, textureURL }) {
   // React.useEffect(() => console.log(ref.current));
 
   return (
-    <mesh ref={ref} position={position}>
-      <sphereBufferGeometry attach='geometry' args={[scale, 360, 360]} />
-      <meshLambertMaterial attach='material' map={texture} />
-    </mesh>
+    <object3D name='earth'>
+      <mesh ref={ref} position={position}>
+        <sphereBufferGeometry attach='geometry' args={[scale, 360, 360]} />
+        <meshLambertMaterial attach='material' map={texture} />
+      </mesh>
+    </object3D>
   );
 }
 
