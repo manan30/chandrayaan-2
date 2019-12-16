@@ -22,6 +22,7 @@ import Moon from '../components/Moon';
 import EarthSceneController from '../Controllers/EarthSceneController';
 
 import EarthTextureURL from '../assets/earth.jpg';
+import Stars from '../components/Stars';
 
 function EarthScene() {
   const rocketRef = React.useRef();
@@ -68,19 +69,16 @@ function EarthScene() {
     <>
       <Light color={0x000000} type='ambientLight' intensity={0.1} />
       <hemisphereLight args={[0x040911, 0xffffff, 0.3]} />
-
+      <Stars />
       <Suspense fallback={<FallbackMesh />}>
         <Ground />
       </Suspense>
-
       {/* <Suspense fallback={<FallbackMesh />}>
         <Road />
       </Suspense> */}
-
       <Suspense fallback={<FallbackMesh />}>
         <Factory position={[0, 0, -250]} scale={[0.05, 0.05, 0.05]} />
       </Suspense>
-
       <Suspense fallback={<FallbackMesh />}>
         <LightTower
           position={[-225, -60, -500]}
@@ -151,7 +149,7 @@ function EarthScene() {
       </Suspense>
       <Suspense fallback={<FallbackMesh />}>
         <Moon position={[1500, 2000, 0]} />
-      </Suspense>
+      </Suspense>{' '}
     </>
   );
 }

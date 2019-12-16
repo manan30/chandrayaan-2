@@ -9,6 +9,16 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  #note {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    color: azure;
+    font-size: 72px;
+    transform: translateX(50%) translateY(-50%);
+    opacity: 0;
+  }
 `;
 
 export const Canvas = styled(C)`

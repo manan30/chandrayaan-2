@@ -6,11 +6,15 @@ import Controls from './components/Controls';
 
 function App() {
   return (
-    <Canvas>
-      {/* <MainScene /> */}
-      <EarthScene />
-      {/* <Controls /> */}
-    </Canvas>
+    <>
+      <Canvas>
+        {/* <MainScene /> */}
+        <EarthScene />
+        {/* <Controls /> */}
+      </Canvas>
+
+      <div id='note'>Thank You</div>
+    </>
   );
 }
 

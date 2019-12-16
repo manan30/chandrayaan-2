@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLoader } from 'react-three-fiber';
+import { useLoader, useFrame } from 'react-three-fiber';
 import { TextureLoader } from 'three';
 
 function Earth({ setRef, position, scale, textureURL }) {
@@ -8,6 +8,10 @@ function Earth({ setRef, position, scale, textureURL }) {
   const ref = React.useRef();
 
   // React.useEffect(() => console.log(ref.current));
+
+  useFrame((_, delta) => {
+    if (ref.current) ref.current.rotation.y += delta / 0.99;
+  });
 
   return (
     <object3D name='earth'>

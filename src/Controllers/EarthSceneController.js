@@ -245,7 +245,7 @@ class EarthSceneController {
 
   moveLander() {
     return new TWEEN.Tween(this.lander.position)
-      .to({ x: 1400 }, 12000)
+      .to({ x: 1000 }, 12000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
         new TWEEN.Tween(this.camera.position)
@@ -327,16 +327,25 @@ class EarthSceneController {
       });
   }
 
-  setCamera() {
-    this.camera.position.set(0, 40, 50);
-  }
+  animateNote() {
+    this.el = document.getElementById('note');
 
-  // boosterSeparation() {
-  //   this.cylinder = this.scene.getObjectByName('Cylinder003');
-  //   return new TWEEN.Tween(this.cylinder)
-  //     .to({ y: 2500 }, 5000)
-  //     .easing(TWEEN.Easing.Cubic.InOut);
-  // }
+    new TWEEN.Tween({
+      opacity: 0
+    })
+      .to(
+        {
+          opacity: 1
+        },
+        2000
+      )
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .delay(2500)
+      .onUpdate(data => {
+        this.el.style.opacity = data.opacity;
+      })
+      .start();
+  }
 
   animate(object) {
     [, this.rocket, this.rocketThrust, this.lander] = object.children;
@@ -392,7 +401,11 @@ class EarthSceneController {
                                                     this.reorientCameraAndLander()
                                                       .start()
                                                       .onComplete(() => {
-                                                        this.startDescent().start();
+                                                        this.startDescent()
+                                                          .start()
+                                                          .onComplete(() => {
+                                                            this.animateNote();
+                                                          });
                                                       })
                                                   );
                                               });
