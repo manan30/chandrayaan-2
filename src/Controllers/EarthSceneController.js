@@ -245,7 +245,7 @@ class EarthSceneController {
 
   moveLander() {
     return new TWEEN.Tween(this.lander.position)
-      .to({ x: 1000 }, 12000)
+      .to({ x: 1400 }, 12000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
         new TWEEN.Tween(this.camera.position)
@@ -287,15 +287,13 @@ class EarthSceneController {
       .to(
         {
           x: this.camera.position.x + 700,
-          y: this.camera.position.y + 150,
-          z: this.camera.position.z - 350
+          y: this.camera.position.y + 120,
+          z: this.camera.position.z - 425
         },
         3000
       )
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
-        this.scene.getObjectByName('earth').position.y = 2200;
-
         new TWEEN.Tween(this.camera.rotation)
           .to({ y: threeMath.degToRad(90) }, 3000)
           .easing(TWEEN.Easing.Cubic.InOut)
@@ -311,15 +309,21 @@ class EarthSceneController {
   startDescent() {
     return new TWEEN.Tween(this.lander.position)
       .to(
-        { x: this.lander.position.x + 50, y: this.lander.position.y - 175 },
+        { x: this.lander.position.x + 120, y: this.lander.position.y - 160 },
         7000
       )
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
         new TWEEN.Tween(this.camera.position)
-          .to({ x: this.camera.position.x - 100 }, 5000)
+          .to(
+            { x: this.camera.position.x - 50, y: this.camera.position.y + 20 },
+            5000
+          )
           .easing(TWEEN.Easing.Cubic.InOut)
           .start();
+      })
+      .onUpdate(() => {
+        this.camera.lookAt(this.lander.position);
       });
   }
 
@@ -382,34 +386,15 @@ class EarthSceneController {
                                             this.moveLander()
                                               .start()
                                               .onComplete(() => {
-                                                // .onComplete(() => {
                                                 this.climbToTheMoon()
                                                   .start()
                                                   .onComplete(() =>
                                                     this.reorientCameraAndLander()
                                                       .start()
                                                       .onComplete(() => {
-                                                        this.startDescent()
-                                                          .start()
-                                                          .onComplete(() => {
-                                                            this.camera.lookAt(
-                                                              this.scene.getObjectByName(
-                                                                'earth'
-                                                              ).position
-                                                            );
-                                                          });
+                                                        this.startDescent().start();
                                                       })
                                                   );
-                                                //     .onComplete(() => {
-                                                //       this.camera.lookAt(
-                                                //         new Vector3(
-                                                //           2000,
-                                                //           2000,
-                                                //           0
-                                                //         )
-                                                //       );
-                                                //     });
-                                                // });
                                               });
                                           });
                                       });
