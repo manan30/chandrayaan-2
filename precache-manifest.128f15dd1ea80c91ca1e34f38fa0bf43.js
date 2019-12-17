@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ac0b322b592790905c7bb0f68a1b9a6a",
+    "revision": "21a78701496faba16bfbd52243ac825f",
     "url": "/chandrayaan-2/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/chandrayaan-2/static/js/2.5eaabda6.chunk.js"
   },
   {
-    "revision": "301f8e99d5dd95d18b33",
-    "url": "/chandrayaan-2/static/js/main.af945c94.chunk.js"
+    "revision": "ea2adfea74671d23a9bc",
+    "url": "/chandrayaan-2/static/js/main.f360cfc7.chunk.js"
   },
   {
     "revision": "29619290ef1f102e10ac",
