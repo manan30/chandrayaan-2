@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import SpaceshipGLTF from '../assets/spaceship.gltf';
 
-function Spaceship({ setRef, scale, position }) {
+function Spaceship({ setRef, scale, position, name }) {
   const gltf = useLoader(GLTFLoader, SpaceshipGLTF, loader => {
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('/draco-gltf/');
@@ -14,7 +14,7 @@ function Spaceship({ setRef, scale, position }) {
   });
 
   return (
-    <group scale={scale} position={position}>
+    <group scale={scale} position={position} name={name}>
       <scene name='OSG_Scene'>
         <object3D
           name='RootNode_(gltf_orientation_matrix)'
@@ -38,6 +38,7 @@ function Spaceship({ setRef, scale, position }) {
                       attach='material'
                       {...gltf.__$[6].material}
                       name='MainRocket_Mat'
+                      transparent
                     />
                   </mesh>
                 </object3D>
@@ -54,6 +55,7 @@ function Spaceship({ setRef, scale, position }) {
                       attach='material'
                       {...gltf.__$[8].material}
                       name='Others_Mat'
+                      transparent
                     />
                   </mesh>
                 </object3D>
@@ -79,6 +81,7 @@ function Spaceship({ setRef, scale, position }) {
                       attach='material'
                       {...gltf.__$[10].material}
                       name='Booster_Mat'
+                      transparent
                     />
                   </mesh>
                 </object3D>

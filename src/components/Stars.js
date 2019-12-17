@@ -9,9 +9,9 @@ function Stars() {
       new Array(10000).fill().map(() => {
         const star = new THREE.Vector3();
 
-        star.x = THREE.Math.randFloatSpread(2000);
-        star.y = THREE.Math.randFloatSpread(2000);
-        star.z = THREE.Math.randFloatSpread(2000);
+        star.x = THREE.Math.randFloatSpread(5000, 10000);
+        star.y = THREE.Math.randFloatSpread(5000, 10000);
+        star.z = THREE.Math.randFloatSpread(5000, 10000);
 
         return star;
       }),

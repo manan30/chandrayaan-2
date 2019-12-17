@@ -17,18 +17,6 @@ class TravelController {
     this.update();
   }
 
-  // calculateDestinationCoordinates(radius, theta, distanceFromParent) {
-  //   this.r = radius;
-  //   this.x = this.r * Math.cos(theta);
-  //   this.y = this.r * Math.sin(theta);
-
-  //   return {
-  //     x: this.x,
-  //     y: this.y,
-  //     z: 0
-  //   };
-  // }
-
   calculateDestinationCoordinates() {
     this.x = this.core.position.x;
     this.y = this.core.position.y;
@@ -90,7 +78,7 @@ class TravelController {
   }
 
   prepareForTravel(takeOffHeight, targetObject) {
-    const travelDuration = 3000; // 3000;
+    const travelDuration = 3000;
 
     const animation = new TWEEN.Tween(this.camera.position).to(
       {
@@ -103,7 +91,6 @@ class TravelController {
 
     animation
       .easing(TWEEN.Easing.Cubic.InOut)
-      .onStart(e => console.log('started', e))
       .onUpdate(() => this.camera.lookAt(targetObject.position));
 
     return animation;
@@ -129,9 +116,6 @@ class TravelController {
     const travelDuration = 5000;
     this.dispatchTravelStartEvent(targetObject);
 
-    // SceneUtils.detach(this.camera, this.camera.parent, this.scene);
-    // SceneUtils.attach(this.camera, this.scene, this.orbitCentroid);
-
     this.core.updateMatrixWorld();
     this.orbitCentroid.updateMatrixWorld();
 
@@ -145,19 +129,10 @@ class TravelController {
     this.cameraTarget = this.objectCentroid;
 
     return this.takeOff.start().onComplete(() => {
-      const cameraTween = new TWEEN.Tween(this.camera.position)
+      new TWEEN.Tween(this.camera.position)
         .to({ x: 150, y: 5, z: 100 }, travelDuration)
         .easing(TWEEN.Easing.Cubic.InOut)
-        .onUpdate(
-          // function update() {
-          //   const destinationCoordinates = this.calculateDestinationCoordinates(
-          //     targetObject
-          //   );
-          //   cameraTween.to(destinationCoordinates);
-          //   this.camera.lookAt(targetObject.position);
-          // }.bind(this)
-          () => this.camera.lookAt(targetObject.position)
-        )
+        .onUpdate(() => this.camera.lookAt(targetObject.position))
         .onComplete(
           this.handleComplete.bind(this, targetObject, this.cameraTarget)
         )
