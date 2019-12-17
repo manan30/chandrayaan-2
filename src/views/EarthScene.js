@@ -149,7 +149,7 @@ function EarthScene() {
       </Suspense>
       <Suspense fallback={<FallbackMesh />}>
         <Moon position={[1500, 2000, 0]} />
-      </Suspense>{' '}
+      </Suspense>
     </>
   );
 }

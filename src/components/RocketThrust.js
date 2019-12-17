@@ -6,7 +6,7 @@ import { PlaneBufferGeometry } from 'three';
 function RocketThrust({ setRef }) {
   const fireRef = React.useRef();
 
-  const fire = new Fire(new PlaneBufferGeometry(200, 200), {
+  const fire = new Fire(new PlaneBufferGeometry(200, 500), {
     textureWidth: 512,
     textureHeight: 512,
     debug: false
@@ -32,7 +32,7 @@ function RocketThrust({ setRef }) {
   fire.speed = 500.0;
   fire.massConservation = false;
 
-  fire.position.set(0, 2, 0);
+  fire.position.set(0, 90, 0);
   fire.visible = false;
 
   return <primitive object={fire} />;
