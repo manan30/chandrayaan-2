@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.js": "/chandrayaan-2/static/js/main.79a9bbc5.chunk.js",
-    "main.js.map": "/chandrayaan-2/static/js/main.79a9bbc5.chunk.js.map",
+    "main.js": "/chandrayaan-2/static/js/main.af945c94.chunk.js",
+    "main.js.map": "/chandrayaan-2/static/js/main.af945c94.chunk.js.map",
     "runtime-main.js": "/chandrayaan-2/static/js/runtime-main.66304fb8.js",
     "runtime-main.js.map": "/chandrayaan-2/static/js/runtime-main.66304fb8.js.map",
-    "static/js/2.4e7b9473.chunk.js": "/chandrayaan-2/static/js/2.4e7b9473.chunk.js",
-    "static/js/2.4e7b9473.chunk.js.map": "/chandrayaan-2/static/js/2.4e7b9473.chunk.js.map",
+    "static/js/2.5eaabda6.chunk.js": "/chandrayaan-2/static/js/2.5eaabda6.chunk.js",
+    "static/js/2.5eaabda6.chunk.js.map": "/chandrayaan-2/static/js/2.5eaabda6.chunk.js.map",
     "index.html": "/chandrayaan-2/index.html",
-    "precache-manifest.8183670b23757054f5533ed57ed7080f.js": "/chandrayaan-2/precache-manifest.8183670b23757054f5533ed57ed7080f.js",
+    "precache-manifest.5c3d46fd1bcce14582574e16eddcce08.js": "/chandrayaan-2/precache-manifest.5c3d46fd1bcce14582574e16eddcce08.js",
     "service-worker.js": "/chandrayaan-2/service-worker.js",
+    "static/media/booster-sound.ogg": "/chandrayaan-2/static/media/booster-sound.29785097.ogg",
     "static/media/earth.jpg": "/chandrayaan-2/static/media/earth.45ae6884.jpg",
     "static/media/factory.glb": "/chandrayaan-2/static/media/factory.2f776448.glb",
     "static/media/ground.jpg": "/chandrayaan-2/static/media/ground.801373c2.jpg",
@@ -22,7 +23,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.66304fb8.js",
-    "static/js/2.4e7b9473.chunk.js",
-    "static/js/main.79a9bbc5.chunk.js"
+    "static/js/2.5eaabda6.chunk.js",
+    "static/js/main.af945c94.chunk.js"
   ]
 }
