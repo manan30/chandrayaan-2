@@ -1,10 +1,26 @@
 import TWEEN from '@tweenjs/tween.js';
-import { Vector3, Math as threeMath, PerspectiveCamera } from 'three';
+import {
+  Vector3,
+  Math as threeMath,
+  AudioListener,
+  PositionalAudio,
+  AudioLoader,
+  SphereGeometry,
+  MeshPhongMaterial,
+  Mesh,
+  Audio
+} from 'three';
+
+import BoosterSoundURL from '../assets/booster-sound.ogg';
+import SpaceHummURL from '../assets/space-humm.ogg';
 
 class EarthSceneController {
   constructor(scene, camera) {
     this.scene = scene;
     this.camera = camera;
+    this.listener = new AudioListener();
+    this.boosterSound = new PositionalAudio(this.listener);
+    this.camera.add(this.listener);
   }
 
   animateCameraPosition1(object) {
@@ -18,17 +34,12 @@ class EarthSceneController {
 
   animateCameraPosition2(object) {
     this.camera.position.set(0, 40, 50);
-    return (
-      new TWEEN.Tween(this.camera.position)
-        .to({ x: 0, y: 100, z: 100 }, 7000)
-        .easing(TWEEN.Easing.Cubic.InOut)
-        // .onStart(() => {
-
-        // })
-        .onUpdate(() => {
-          this.camera.lookAt(object.position);
-        })
-    );
+    return new TWEEN.Tween(this.camera.position)
+      .to({ x: 0, y: 100, z: 100 }, 7000)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onUpdate(() => {
+        this.camera.lookAt(object.position);
+      });
   }
 
   animateCameraPosition3(object) {
@@ -76,9 +87,23 @@ class EarthSceneController {
 
   startThrust() {
     return new TWEEN.Tween({})
-      .to({}, 1000)
+      .to({}, 3000)
       .delay(2000)
-      .onStart(() => (this.rocketThrust.visible = true));
+      .onStart(() => {
+        const audioLoader = new AudioLoader();
+        audioLoader.load(BoosterSoundURL, buffer => {
+          this.boosterSound.setBuffer(buffer);
+          this.boosterSound.setRefDistance(20);
+          this.boosterSound.play();
+        });
+        const sphere = new SphereGeometry(20, 32, 16);
+        const material = new MeshPhongMaterial({ color: 0xff2200 });
+        const mesh = new Mesh(sphere, material);
+        this.scene.add(mesh);
+
+        mesh.add(this.boosterSound);
+        this.rocketThrust.visible = true;
+      });
   }
 
   rotateRocket(object) {
@@ -140,6 +165,8 @@ class EarthSceneController {
       .onStart(() => {
         this.fadeInLander(object);
         this.rocketThrust.visible = false;
+        this.boosterSound.setVolume(0.4);
+        this.boosterSound.stop();
       });
   }
 
@@ -211,6 +238,14 @@ class EarthSceneController {
       .to({ z: threeMath.degToRad(-90) }, 2000)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onStart(() => {
+        this.universalSound = new Audio(this.listener);
+        this.audioLoader = new AudioLoader();
+        this.audioLoader.load(SpaceHummURL, buffer => {
+          this.universalSound.setBuffer(buffer);
+          this.universalSound.setLoop(true);
+          this.universalSound.setVolume(0.1);
+          this.universalSound.play();
+        });
         new TWEEN.Tween(this.camera.position)
           .to(
             {
@@ -344,7 +379,8 @@ class EarthSceneController {
       .onUpdate(data => {
         this.el.style.opacity = data.opacity;
       })
-      .start();
+      .start()
+      .onComplete(() => this.universalSound.stop());
   }
 
   animate(object) {
