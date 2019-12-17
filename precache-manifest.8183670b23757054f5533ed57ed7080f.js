@@ -1,23 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ac0b322b592790905c7bb0f68a1b9a6a",
+    "revision": "31d0795879da69ae49c545ace91d2699",
     "url": "/chandrayaan-2/index.html"
   },
   {
-    "revision": "a6e690a291f976a9abfa",
-    "url": "/chandrayaan-2/static/js/2.5eaabda6.chunk.js"
+    "revision": "ff39f2cfcdcc6a44682c",
+    "url": "/chandrayaan-2/static/js/2.4e7b9473.chunk.js"
   },
   {
-    "revision": "301f8e99d5dd95d18b33",
-    "url": "/chandrayaan-2/static/js/main.af945c94.chunk.js"
+    "revision": "838bdd6ba4143e7c8503",
+    "url": "/chandrayaan-2/static/js/main.79a9bbc5.chunk.js"
   },
   {
     "revision": "29619290ef1f102e10ac",
     "url": "/chandrayaan-2/static/js/runtime-main.66304fb8.js"
-  },
-  {
-    "revision": "29785097e5341056364d70f3cf4d0ba9",
-    "url": "/chandrayaan-2/static/media/booster-sound.29785097.ogg"
   },
   {
     "revision": "45ae6884f17efcd6ad13d7071f3bb2b8",

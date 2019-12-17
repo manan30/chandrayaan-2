@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/chandrayaan-2/precache-manifest.5c3d46fd1bcce14582574e16eddcce08.js"
+  "/chandrayaan-2/precache-manifest.8183670b23757054f5533ed57ed7080f.js"
 );
 
 self.addEventListener('message', (event) => {
