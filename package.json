@@ -2,7 +2,7 @@
   "name": "chandrayaan-2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://localhost:5000/build",
+  "homepage": "https://manan30.github.io/chandrayaan-2/",
   "dependencies": {
     "@tweenjs/tween.js": "18.4.2",
     "prop-types": "15.7.2",

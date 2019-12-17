@@ -9,7 +9,7 @@ export default function Model(props) {
   const group = useRef();
   const gltf = useLoader(GLTFLoader, PoleGLB, loader => {
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('/draco-gltf/');
+    dracoLoader.setDecoderPath('/chandrayaan-2/draco-gltf/');
     loader.setDRACOLoader(dracoLoader);
   });
 

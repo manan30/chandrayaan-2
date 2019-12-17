@@ -9,7 +9,7 @@ import SpaceshipGLTF from '../assets/spaceship.gltf';
 function Spaceship({ setRef, scale, position, name }) {
   const gltf = useLoader(GLTFLoader, SpaceshipGLTF, loader => {
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('/draco-gltf/');
+    dracoLoader.setDecoderPath('/chandrayaan-2/draco-gltf/');
     loader.setDRACOLoader(dracoLoader);
   });
 
